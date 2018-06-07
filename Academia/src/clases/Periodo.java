@@ -5,10 +5,17 @@
  */
 package clases;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author Juuan
  */
 public class Periodo {
-    
+    private Date fechaInicio;
+    private Date fechaFin;
+    private String nombrePeriodo;
+    private ArrayList<Curso> cursos;
+    private ArrayList<PlanDeCurso> planesDeCurso;
 }

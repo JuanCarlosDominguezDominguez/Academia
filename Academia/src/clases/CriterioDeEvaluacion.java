@@ -5,10 +5,18 @@
  */
 package clases;
 
+import java.util.Date;
+
 /**
  *
  * @author Juuan
  */
 public class CriterioDeEvaluacion {
-    
+    private int unidad;
+    private String criterioEvaluacion;
+    private Date fecha;
+    private String instrumento;
+    private String porcentaje;
+    private ExperienciaEducativa experienciaEducativa;
+    private PlanDeCurso planDeCurso;
 }

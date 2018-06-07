@@ -5,10 +5,16 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Juuan
  */
 public class PlanDeCurso {
-    
+    private String objetivoGeneral;
+    private Periodo periodo;
+    private ArrayList<Bibliografia> bibliografias;
+    private ArrayList<Unidad> unidades;
+    private ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion;
 }

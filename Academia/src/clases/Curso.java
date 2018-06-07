@@ -10,5 +10,10 @@ package clases;
  * @author Juuan
  */
 public class Curso {
-    
+    private String nrc;
+    private int bloque;
+    private int seccion;
+    private ExperienciaEducativa experienciaEducativa;
+    private Periodo periodo;
+    private Profesor profesor;
 }
