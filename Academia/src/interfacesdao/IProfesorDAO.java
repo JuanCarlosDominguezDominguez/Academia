@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package interfacesdao;
 
 import clases.Profesor;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,7 @@ import clases.Profesor;
  */
 public interface IProfesorDAO {
     boolean agregarProfesor(Profesor profesor);
+    boolean eliminarProfesor(String numeroDePersonal);
+    Profesor obtenerProfesor(String numeroDePersonal);
+    List<Profesor> obetenerTodosLosProfesores();
 }

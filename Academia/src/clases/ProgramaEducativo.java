@@ -38,6 +38,4 @@ class ProgramaEducativo {
     public void setAcademias(ArrayList<Academia> academias) {
         this.academias = academias;
     }
-    
-    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package interfacesdao;
 
 import clases.Curso;
 import java.util.List;
