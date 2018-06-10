@@ -13,8 +13,5 @@ import java.util.List;
  * @author Juuan
  */
 public interface IPeriodoDAO {
-    boolean agregarPeriodo(Periodo periodo);
-    boolean eliminarPeriodo(String nombrePeriodo);
     Periodo obtenerPeriodo(String nombrePeriodo);
-    List<Periodo> obtenerTodosLosPeriodos();
 }

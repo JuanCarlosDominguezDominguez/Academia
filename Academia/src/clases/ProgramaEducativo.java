@@ -11,16 +11,14 @@ import java.util.ArrayList;
  *
  * @author Juuan
  */
-class ProgramaEducativo {
+public class ProgramaEducativo {
     private String nombrePE;
-    private ArrayList<Academia> academias;
 
     public ProgramaEducativo() {
     }
 
-    public ProgramaEducativo(String nombrePE, ArrayList<Academia> academias) {
+    public ProgramaEducativo(String nombrePE) {
         this.nombrePE = nombrePE;
-        this.academias = academias;
     }
 
     public String getNombrePE() {
@@ -30,12 +28,5 @@ class ProgramaEducativo {
     public void setNombrePE(String nombrePE) {
         this.nombrePE = nombrePE;
     }
-
-    public ArrayList<Academia> getAcademias() {
-        return academias;
-    }
-
-    public void setAcademias(ArrayList<Academia> academias) {
-        this.academias = academias;
-    }
+    
 }

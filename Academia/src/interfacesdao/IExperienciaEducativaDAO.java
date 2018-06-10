@@ -13,8 +13,5 @@ import java.util.List;
  * @author Juuan
  */
 public interface IExperienciaEducativaDAO {
-    boolean agregarExperienciaEducativa(ExperienciaEducativa experienciaEducativa);
-    boolean eliminarExperienciaEducativa(String codigo);
     ExperienciaEducativa obtenerExperienciaEducativa(String codigo);
-    List<ExperienciaEducativa> obeternerTodasLasExperienciasEducativas();
 }

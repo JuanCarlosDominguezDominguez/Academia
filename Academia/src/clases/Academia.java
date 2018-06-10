@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * @author Juuan
  */
 public class Academia {
-    private String facultad;
-    private String area;
+    private String nombreAcademia;
     private ArrayList<Profesor> profesores;
     private Profesor coordinadorDeAcademia;
     private ArrayList<ProgramaEducativo> programasEducativos;
@@ -21,20 +20,19 @@ public class Academia {
     public Academia() {
     }
 
-    public String getFacultad() {
-        return facultad;
+    public Academia(String nombreAcademia, ArrayList<Profesor> profesores, Profesor coordinadorDeAcademia, ArrayList<ProgramaEducativo> programasEducativos) {
+        this.nombreAcademia = nombreAcademia;
+        this.profesores = profesores;
+        this.coordinadorDeAcademia = coordinadorDeAcademia;
+        this.programasEducativos = programasEducativos;
     }
 
-    public void setFacultad(String facultad) {
-        this.facultad = facultad;
+    public String getNombreAcademia() {
+        return nombreAcademia;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
+    public void setNombreAcademia(String nombreAcademia) {
+        this.nombreAcademia = nombreAcademia;
     }
 
     public ArrayList<Profesor> getProfesores() {
@@ -60,4 +58,6 @@ public class Academia {
     public void setProgramasEducativos(ArrayList<ProgramaEducativo> programasEducativos) {
         this.programasEducativos = programasEducativos;
     }
+    
+    
 }

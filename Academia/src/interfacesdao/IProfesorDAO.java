@@ -13,8 +13,6 @@ import java.util.List;
  * @author Juuan
  */
 public interface IProfesorDAO {
-    boolean agregarProfesor(Profesor profesor);
-    boolean eliminarProfesor(String numeroDePersonal);
     Profesor obtenerProfesor(String numeroDePersonal);
     List<Profesor> obetenerTodosLosProfesores();
 }

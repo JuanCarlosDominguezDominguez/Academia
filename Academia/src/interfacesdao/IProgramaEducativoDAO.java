@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 package interfacesdao;
-
-import clases.Curso;
-import java.util.List;
-
+import clases.ProgramaEducativo;
 /**
  *
  * @author Juuan
  */
-public interface ICursoDAO {
-    Curso obtenerCurso(String nrc);
+public interface IProgramaEducativoDAO {
+    ProgramaEducativo obtenerProgramaEducativo(String nombrePE);
 }

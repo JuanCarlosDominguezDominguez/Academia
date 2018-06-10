@@ -13,8 +13,5 @@ import java.util.List;
  * @author Juuan
  */
 public interface IAcademiaDAO {
-    boolean agregarAcademia(Academia academia);
-    boolean eliminarAcademia(String nombreAcademia);
     Academia obtenerAcademiaPorNombre(String nombreAcademia);
-    List<Academia> obtenerTodasLasAcademias();
 }
