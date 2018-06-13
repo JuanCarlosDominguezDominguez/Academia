@@ -13,12 +13,12 @@ public class Bibliografia {
     private String autor;
     private String tituloLibro;
     private String editorial;
-    private String anio;
+    private int anio;
 
     public Bibliografia() {
     }
 
-    public Bibliografia(String autor, String tituloLibro, String editorial, String anio) {
+    public Bibliografia(String autor, String tituloLibro, String editorial, int anio) {
         this.autor = autor;
         this.tituloLibro = tituloLibro;
         this.editorial = editorial;
@@ -49,11 +49,11 @@ public class Bibliografia {
         this.editorial = editorial;
     }
 
-    public String getAnio() {
+    public int getAnio() {
         return anio;
     }
 
-    public void setAnio(String anio) {
+    public void setAnio(int anio) {
         this.anio = anio;
     }
     

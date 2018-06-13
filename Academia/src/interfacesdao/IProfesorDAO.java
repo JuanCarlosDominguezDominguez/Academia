@@ -14,5 +14,4 @@ import java.util.List;
  */
 public interface IProfesorDAO {
     Profesor obtenerProfesor(String numeroDePersonal);
-    List<Profesor> obetenerTodosLosProfesores();
 }

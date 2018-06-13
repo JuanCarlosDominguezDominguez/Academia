@@ -6,6 +6,7 @@
 package interfacesdao;
 
 import clases.Curso;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ import java.util.List;
  * @author Juuan
  */
 public interface ICursoDAO {
-    Curso obtenerCurso(String nrc);
+    ArrayList<Curso> obtenerCursosPorProfesor(String numeroDePersonal);
 }

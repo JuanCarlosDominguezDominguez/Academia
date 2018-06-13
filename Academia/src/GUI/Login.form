@@ -81,6 +81,7 @@
         <Component class="javax.swing.JTextField" name="numeroDePersonalIn">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numeroDePersonalInActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="numeroDePersonalInKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="numeroDePersonalText">
@@ -97,8 +98,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptarButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="contraseniaIn">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="contraseniaInKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

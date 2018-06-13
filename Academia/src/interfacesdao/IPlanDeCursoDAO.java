@@ -6,7 +6,6 @@
 package interfacesdao;
 
 import clases.PlanDeCurso;
-import java.util.List;
 
 /**
  *
@@ -16,5 +15,4 @@ public interface IPlanDeCursoDAO {
     boolean agregarPlanDeCurso(PlanDeCurso planDeCurso);
     boolean eliminarPlanDeCurso(int idPlan);
     PlanDeCurso obetenerPlanDeCurso(int idPlan);
-    List<PlanDeCurso> obtenerTodosLosPlanesDeCurso();
 }

@@ -15,20 +15,16 @@ public class Profesor {
     private String numeroDePersonal;
     private String nombre;
     private String gradoAcademico;
-    private String area;
-    private String facultad;
     private ArrayList<Academia> academias;
     private ArrayList<Curso> cursos;
 
     public Profesor() {
     }
 
-    public Profesor(String numeroDePersonal, String nombre, String gradoAcademico, String area, String facultad, ArrayList<Academia> academias, ArrayList<Curso> cursos) {
+    public Profesor(String numeroDePersonal, String nombre, String gradoAcademico, ArrayList<Academia> academias, ArrayList<Curso> cursos) {
         this.numeroDePersonal = numeroDePersonal;
         this.nombre = nombre;
         this.gradoAcademico = gradoAcademico;
-        this.area = area;
-        this.facultad = facultad;
         this.academias = academias;
         this.cursos = cursos;
     }
@@ -57,22 +53,6 @@ public class Profesor {
         this.gradoAcademico = gradoAcademico;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getFacultad() {
-        return facultad;
-    }
-
-    public void setFacultad(String facultad) {
-        this.facultad = facultad;
-    }
-
     public ArrayList<Academia> getAcademias() {
         return academias;
     }
@@ -88,6 +68,7 @@ public class Profesor {
     public void setCursos(ArrayList<Curso> cursos) {
         this.cursos = cursos;
     }
+    
     
     
 }

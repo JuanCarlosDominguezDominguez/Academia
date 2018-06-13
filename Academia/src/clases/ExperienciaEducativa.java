@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 
 /**
  *
@@ -16,18 +18,18 @@ public class ExperienciaEducativa {
     private String descripcion;
     private int numeroDeCreditos;
     private Curso curso;
-    private ProgramaEducativo programaEducativo;
+    private ArrayList<ProgramaEducativo> programasEducativos;
 
     public ExperienciaEducativa() {
     }
 
-    public ExperienciaEducativa(String codigo, String nombreEE, String descripcion, int numeroDeCreditos, Curso curso, ProgramaEducativo programaEducativo) {
+    public ExperienciaEducativa(String codigo, String nombreEE, String descripcion, int numeroDeCreditos, Curso curso, ArrayList<ProgramaEducativo> programasEducativos) {
         this.codigo = codigo;
         this.nombreEE = nombreEE;
         this.descripcion = descripcion;
         this.numeroDeCreditos = numeroDeCreditos;
         this.curso = curso;
-        this.programaEducativo = programaEducativo;
+        this.programasEducativos = programasEducativos;
     }
 
     public String getCodigo() {
@@ -70,12 +72,12 @@ public class ExperienciaEducativa {
         this.curso = curso;
     }
 
-    public ProgramaEducativo getProgramaEducativo() {
-        return programaEducativo;
+    public ArrayList<ProgramaEducativo> getProgramasEducativos() {
+        return programasEducativos;
     }
 
-    public void setProgramaEducativo(ProgramaEducativo programaEducativo) {
-        this.programaEducativo = programaEducativo;
+    public void setProgramasEducativos(ArrayList<ProgramaEducativo> programasEducativos) {
+        this.programasEducativos = programasEducativos;
     }
     
     

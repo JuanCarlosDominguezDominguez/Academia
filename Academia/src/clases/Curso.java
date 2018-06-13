@@ -10,7 +10,7 @@ package clases;
  * @author Juuan
  */
 public class Curso {
-    private String nrc;
+    private int nrc;
     private int bloque;
     private int seccion;
     private ExperienciaEducativa experienciaEducativa;
@@ -20,7 +20,7 @@ public class Curso {
     public Curso() {
     }
 
-    public Curso(String nrc, int bloque, int seccion, ExperienciaEducativa experienciaEducativa, Periodo periodo, Profesor profesor) {
+    public Curso(int nrc, int bloque, int seccion, ExperienciaEducativa experienciaEducativa, Periodo periodo, Profesor profesor) {
         this.nrc = nrc;
         this.bloque = bloque;
         this.seccion = seccion;
@@ -29,11 +29,11 @@ public class Curso {
         this.profesor = profesor;
     }
 
-    public String getNrc() {
+    public int getNrc() {
         return nrc;
     }
 
-    public void setNrc(String nrc) {
+    public void setNrc(int nrc) {
         this.nrc = nrc;
     }
 

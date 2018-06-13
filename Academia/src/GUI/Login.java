@@ -5,6 +5,13 @@
  */
 package GUI;
 
+import basedatos.DataBase;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Juuan
@@ -16,6 +23,29 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+    }
+    
+    public boolean buscarUsuario(String numeroDePersonal, String contrasenia){
+        boolean encontrado = false;
+        String BUSCAR_USUARIO = "SELECT* FROM usuario_contrasena WHERE numeroPersonal = '"+numeroDePersonal+"' AND contraseña = '"+contrasenia+"';";
+        String numeroDePersonalObtenido= "";
+        String contraseniaObtenida = "";
+        Connection conexion = DataBase.getDataBaseConnection();
+        try{
+            PreparedStatement statement = conexion.prepareStatement(BUSCAR_USUARIO);
+            ResultSet resultado = statement.executeQuery();
+            while(resultado.next()){
+                numeroDePersonalObtenido = resultado.getString("numeroPersonal");
+                contraseniaObtenida = resultado.getString("Contraseña");
+                if(numeroDePersonal.equals(numeroDePersonalObtenido) && contrasenia.equals(contraseniaObtenida)){
+                    encontrado = true;
+                }
+            }
+            return encontrado;
+        }catch(SQLException excepcion){
+            
+        }
+        return encontrado;
     }
 
     /**
@@ -41,12 +71,28 @@ public class Login extends javax.swing.JFrame {
                 numeroDePersonalInActionPerformed(evt);
             }
         });
+        numeroDePersonalIn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                numeroDePersonalInKeyTyped(evt);
+            }
+        });
 
         numeroDePersonalText.setText("Número de personal: ");
 
         contraseniaText.setText("Contraseña: ");
 
         aceptarButton.setText("Aceptar");
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
+            }
+        });
+
+        contraseniaIn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contraseniaInKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -99,6 +145,33 @@ public class Login extends javax.swing.JFrame {
     private void numeroDePersonalInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroDePersonalInActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numeroDePersonalInActionPerformed
+
+    private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        if(numeroDePersonalIn.getText().length() == 0 || contraseniaIn.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Debes llena los campos");
+        }else{
+            if(!buscarUsuario(numeroDePersonalIn.getText(), contraseniaIn.getText())){
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+            }else{
+                SeleccionarAcademia.setNumeroDePersonal(numeroDePersonalIn.getText());
+                SeleccionarAcademia seleccionar = new SeleccionarAcademia();
+                seleccionar.setVisible(true);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_aceptarButtonActionPerformed
+
+    private void contraseniaInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseniaInKeyTyped
+        if(contraseniaIn.getText().length() >= 45){
+            JOptionPane.showMessageDialog(this, "Solo se aceptan un maximo de 45 caracteres");
+        }
+    }//GEN-LAST:event_contraseniaInKeyTyped
+
+    private void numeroDePersonalInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroDePersonalInKeyTyped
+        if (numeroDePersonalIn.getText().length() >= 100){
+            JOptionPane.showMessageDialog(this, "Solo se aceptan un maximo de 100 caracteres");
+        }
+    }//GEN-LAST:event_numeroDePersonalInKeyTyped
 
     /**
      * @param args the command line arguments
