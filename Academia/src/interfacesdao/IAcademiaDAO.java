@@ -13,6 +13,7 @@ import java.util.List;
  * @author Juuan
  */
 public interface IAcademiaDAO {
+    List<Academia> obtenerTodasLasAcademiasPorProfesor(String numeroDePersonal);
+    List<Academia> obtenerTodasLasAcademiasPorExperienciaEducativa(String codigoEE);
     Academia obtenerAcademiaPorNombre(String nombreAcademia);
-    List<Academia> obetenerTodasLasAcademiasPorProfesor(String numeroDePersonal);
 }

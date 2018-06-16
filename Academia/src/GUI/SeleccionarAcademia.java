@@ -7,7 +7,9 @@ package GUI;
 
 import DAO.AcademiaDAO;
 import DAO.CursoDAO;
-import DAO.ExperienciaEducativaDAO;
+import DAO.ProfesorDAO;
+import clases.Profesor;
+
 
 /**
  *
@@ -29,20 +31,25 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
      */
     public SeleccionarAcademia() {
         initComponents();
-        AcademiaDAO academiaDAO = new AcademiaDAO();
-        for (int i = 0; i < academiaDAO.obetenerTodasLasAcademiasPorProfesor(numeroDePersonal).size(); i++){
-            academiaIn.addItem(academiaDAO.obetenerTodasLasAcademiasPorProfesor(numeroDePersonal).get(i).getNombreAcademia());
+        
+        
+        
+        for(int i = 0; i < obtenerProfesor(numeroDePersonal).getAcademias().size(); i++){
+            academiaIn.addItem(obtenerProfesor(numeroDePersonal).getAcademias().get(i).getNombreAcademia());
         }
         
-        CursoDAO cursoDAO = new CursoDAO();
-        ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-        for(int i = 0; i < cursoDAO.obtenerCursosPorProfesor(numeroDePersonal).size(); i++){
-            experienciaEducativaIn.addItem(experienciaEducativaDAO.obtenerExperienciaEducativa(cursoDAO.obtenerCursosPorProfesor(numeroDePersonal).get(i).getExperienciaEducativa().getCodigo()).getNombreEE());
-        }
     }
     
-    
-    
+    public Profesor obtenerProfesor(String numeroDePersonal){
+        Profesor profesor = new Profesor();
+        ProfesorDAO profesorDAO = new ProfesorDAO();
+        AcademiaDAO academiaDAO = new AcademiaDAO();
+        CursoDAO cursoDAO = new CursoDAO();
+        profesor = profesorDAO.obtenerProfesor(numeroDePersonal);
+        profesor.setAcademias(academiaDAO.obtenerTodasLasAcademiasPorProfesor(numeroDePersonal));
+        profesor.setCursos(cursoDAO.obtenerCursosPorProfesor(numeroDePersonal));
+        return profesor;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content ofS
@@ -56,12 +63,23 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
         mensajeText = new javax.swing.JLabel();
         experienciaEducativaText = new javax.swing.JLabel();
         experienciaEducativaIn = new javax.swing.JComboBox<>();
+        aceptarButton = new javax.swing.JButton();
+        salirButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mensajeText.setText("Bienvenido, elije una academia: ");
 
         experienciaEducativaText.setText("Elije una experiencia educativa:");
+
+        aceptarButton.setText("Aceptar");
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
+            }
+        });
+
+        salirButton.setText("Salir");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -78,7 +96,12 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(academiaIn, 0, 293, Short.MAX_VALUE)
-                            .addComponent(experienciaEducativaIn, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(experienciaEducativaIn, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(aceptarButton)
+                        .addGap(46, 46, 46)
+                        .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
@@ -92,7 +115,11 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
                 .addComponent(experienciaEducativaText)
                 .addGap(18, 18, 18)
                 .addComponent(experienciaEducativaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aceptarButton)
+                    .addComponent(salirButton))
+                .addContainerGap())
         );
 
         mensajeText.getAccessibleContext().setAccessibleName("Bienvenido, por favor elije una academia:\n");
@@ -110,6 +137,10 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        
+    }//GEN-LAST:event_aceptarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,9 +179,11 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> academiaIn;
+    private javax.swing.JButton aceptarButton;
     private javax.swing.JComboBox<String> experienciaEducativaIn;
     private javax.swing.JLabel experienciaEducativaText;
     private javax.swing.JLabel mensajeText;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton salirButton;
     // End of variables declaration//GEN-END:variables
 }

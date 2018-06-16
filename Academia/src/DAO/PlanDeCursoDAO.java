@@ -39,8 +39,8 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             //AGREGAR PLAN DE CURSO
             PreparedStatement statement = conexion.prepareStatement(INSERTAR_PLAN);
             statement.setString(1, planDeCurso.getObjetivoGeneral());
-            statement.setString(2, planDeCurso.getPeriodo().getNombrePeriodo());
-            statement.setInt(3, planDeCurso.getPeriodo().getCursos().get(0).getNrc());
+            statement.setString(2, planDeCurso.getCurso().getPeriodo().getNombrePeriodo());
+            statement.setInt(3, planDeCurso.getCurso().getNrc());
             statement.setString(4, planDeCurso.getEstado());
             statement.execute();
             ResultSet keyPlan = statement.getGeneratedKeys();

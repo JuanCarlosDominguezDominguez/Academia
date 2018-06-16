@@ -16,8 +16,15 @@ public class Periodo {
     private Date fechaInicio;
     private Date fechaFin;
     private String nombrePeriodo;
-    private ArrayList<Curso> cursos;
-    private ArrayList<PlanDeCurso> planesDeCurso;
+
+    public Periodo() {
+    }
+
+    public Periodo(Date fechaInicio, Date fechaFin, String nombrePeriodo) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.nombrePeriodo = nombrePeriodo;
+    }
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -43,19 +50,5 @@ public class Periodo {
         this.nombrePeriodo = nombrePeriodo;
     }
 
-    public ArrayList<Curso> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(ArrayList<Curso> cursos) {
-        this.cursos = cursos;
-    }
-
-    public ArrayList<PlanDeCurso> getPlanesDeCurso() {
-        return planesDeCurso;
-    }
-
-    public void setPlanesDeCurso(ArrayList<PlanDeCurso> planesDeCurso) {
-        this.planesDeCurso = planesDeCurso;
-    }
+    
 }

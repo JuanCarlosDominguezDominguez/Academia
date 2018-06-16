@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class PlanDeCurso {
     private String objetivoGeneral;
-    private Periodo periodo;
+    private Curso curso;
     private String estado;
     private ArrayList<Bibliografia> bibliografias;
     private ArrayList<Unidad> unidades;
@@ -22,9 +22,9 @@ public class PlanDeCurso {
     public PlanDeCurso() {
     }
 
-    public PlanDeCurso(String objetivoGeneral, Periodo periodo, String estado, ArrayList<Bibliografia> bibliografias, ArrayList<Unidad> unidades, ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion) {
+    public PlanDeCurso(String objetivoGeneral, Curso curso, String estado, ArrayList<Bibliografia> bibliografias, ArrayList<Unidad> unidades, ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion) {
         this.objetivoGeneral = objetivoGeneral;
-        this.periodo = periodo;
+        this.curso = curso;
         this.estado = estado;
         this.bibliografias = bibliografias;
         this.unidades = unidades;
@@ -39,12 +39,12 @@ public class PlanDeCurso {
         this.objetivoGeneral = objetivoGeneral;
     }
 
-    public Periodo getPeriodo() {
-        return periodo;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public String getEstado() {
@@ -78,6 +78,6 @@ public class PlanDeCurso {
     public void setCriteriosDeEvaluacion(ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion) {
         this.criteriosDeEvaluacion = criteriosDeEvaluacion;
     }
-    
+
     
 }
