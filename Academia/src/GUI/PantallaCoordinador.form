@@ -46,11 +46,11 @@
                   <Component id="imagenUsuario" min="-2" pref="129" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton2" max="32767" attributes="0"/>
+                      <Component id="visualizarMJAButton" max="32767" attributes="0"/>
                       <Component id="consultarJAButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="visualizarAPButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="visualizarPCButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="visualizarPTButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
@@ -67,13 +67,13 @@
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="consultarJAButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="visualizarMJAButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="visualizarAPButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="visualizarPCButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="43" max="32767" attributes="0"/>
-                  <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                  <Component id="visualizarPTButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -94,25 +94,31 @@
             <Property name="text" type="java.lang.String" value="Consultar juntas de academia"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="visualizarMJAButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar minuta de junta de academia"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="visualizarAPButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar avance programatico"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="visualizarPCButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar plan de curso"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarPCButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="visualizarPTButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar plan de trabajo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarPTButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

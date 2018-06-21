@@ -30,22 +30,24 @@ public class CursoDAO implements ICursoDAO{
         try{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_NRC);
             statement.setString(1, numeroDePersonal);
-            ResultSet resultado = statement.executeQuery();
-            while(resultado.next()){
+            ResultSet resultadoNrc = statement.executeQuery();
+            while(resultadoNrc.next()){
                 Curso curso = new Curso();
-                curso.setNrc(resultado.getInt("nrc"));
+                curso.setNrc(resultadoNrc.getInt("nrc"));
                 statement = conexion.prepareStatement(OBTENER_CURSO);
-                resultado = statement.executeQuery();
-                while(resultado.next()){
-                    curso.setBloque(resultado.getInt("bloque"));
-                    curso.setSeccion(resultado.getInt("sección"));
+                statement.setInt(1, curso.getNrc());
+                ResultSet resultadoCurso = statement.executeQuery();
+                while(resultadoCurso.next()){
+                    curso.setBloque(resultadoCurso.getInt("bloque"));
+                    curso.setSeccion(resultadoCurso.getInt("sección"));
                     //AGREGAR EXPERIENCIA EDUCATIVA A CURSO
                     ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-                    curso.setExperienciaEducativa(experienciaEducativaDAO.obtenerExperienciaEducativa(resultado.getString("códigoEE")));
+                    curso.setExperienciaEducativa(experienciaEducativaDAO.obtenerExperienciaEducativa(resultadoCurso.getString("códigoEE")));
                     //AGREGAR PERIODO A CURSO
                     PeriodoDAO periodoDAO = new PeriodoDAO();
-                    curso.setPeriodo(periodoDAO.obtenerPeriodo(resultado.getString("nombrePeriodo")));
+                    curso.setPeriodo(periodoDAO.obtenerPeriodo(resultadoCurso.getString("nombrePeriodo")));
                 }
+                cursos.add(curso);
             }
         }catch(SQLException excepcion){
             

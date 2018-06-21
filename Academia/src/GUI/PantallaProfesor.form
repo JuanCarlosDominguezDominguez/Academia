@@ -121,7 +121,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="elaborarPCButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Elaborar plan de cruso"/>
+            <Property name="text" type="java.lang.String" value="Elaborar plan de curso"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="elaborarPCButtonActionPerformed"/>
@@ -146,6 +146,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar plan de curso"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarPCButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="visualizarPTButton">
           <Properties>

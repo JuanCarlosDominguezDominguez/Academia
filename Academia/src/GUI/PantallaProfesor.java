@@ -5,17 +5,48 @@
  */
 package GUI;
 
+import clases.Profesor;
+
 /**
  *
  * @author Juuan
  */
 public class PantallaProfesor extends javax.swing.JFrame {
+    public static Profesor profesor;
+    private static int posicionCurso;
 
+    public static int getPosicionCurso() {
+        return posicionCurso;
+    }
+
+    public static void setPosicionCurso(int posicionCurso) {
+        PantallaProfesor.posicionCurso = posicionCurso;
+    }
+
+    public static Profesor getProfesor() {
+        return profesor;
+    }
+
+    public static void setProfesor(Profesor profesor) {
+        PantallaProfesor.profesor = profesor;
+    }
+    
     /**
      * Creates new form PantallaProfesor
      */
     public PantallaProfesor() {
         initComponents();
+        habilitarBotones();
+    }
+    
+    public void habilitarBotones(){
+        consultarJAButton.setEnabled(false);
+        elaborarAPButton.setEnabled(false);
+        elaborarPCButton.setEnabled(true);
+        visualizarAPButton.setEnabled(false);
+        visualizarMJAButton.setEnabled(false);
+        visualizarPCButton.setEnabled(true);
+        visualizarPTButton.setEnabled(false);
     }
 
     /**
@@ -55,7 +86,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
 
         elaborarAPButton.setText("Elaborar avance programatico");
 
-        elaborarPCButton.setText("Elaborar plan de cruso");
+        elaborarPCButton.setText("Elaborar plan de curso");
         elaborarPCButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 elaborarPCButtonActionPerformed(evt);
@@ -69,6 +100,11 @@ public class PantallaProfesor extends javax.swing.JFrame {
         visualizarAPButton.setText("Visualizar avance programatico");
 
         visualizarPCButton.setText("Visualizar plan de curso");
+        visualizarPCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarPCButtonActionPerformed(evt);
+            }
+        });
 
         visualizarPTButton.setText("Visualizar plan de trabajo");
 
@@ -131,8 +167,20 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void elaborarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elaborarPCButtonActionPerformed
-        // TODO add your handling code here:
+        ElaborarPlanDeCurso.setProfesor(profesor);
+        ElaborarPlanDeCurso.setPosicionCurso(posicionCurso);
+        ElaborarPlanDeCurso elaborarPlanDeCurso = new ElaborarPlanDeCurso();
+        elaborarPlanDeCurso.setVisible(true);
+        dispose();
     }//GEN-LAST:event_elaborarPCButtonActionPerformed
+
+    private void visualizarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPCButtonActionPerformed
+        VisualizarPlanDeCurso.setProfesor(profesor);
+        VisualizarPlanDeCurso.setPosicionCurso(posicionCurso);
+        VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
+        visualizarPlanDeCurso.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_visualizarPCButtonActionPerformed
 
     /**
      * @param args the command line arguments

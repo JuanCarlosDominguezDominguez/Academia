@@ -19,17 +19,9 @@ public class ExperienciaEducativa {
     private int numeroDeCreditos;
     private Curso curso;
     private ArrayList<ProgramaEducativo> programasEducativos;
+    private Academia academia;
 
     public ExperienciaEducativa() {
-    }
-
-    public ExperienciaEducativa(String codigo, String nombreEE, String descripcion, int numeroDeCreditos, Curso curso, ArrayList<ProgramaEducativo> programasEducativos) {
-        this.codigo = codigo;
-        this.nombreEE = nombreEE;
-        this.descripcion = descripcion;
-        this.numeroDeCreditos = numeroDeCreditos;
-        this.curso = curso;
-        this.programasEducativos = programasEducativos;
     }
 
     public String getCodigo() {
@@ -79,6 +71,23 @@ public class ExperienciaEducativa {
     public void setProgramasEducativos(ArrayList<ProgramaEducativo> programasEducativos) {
         this.programasEducativos = programasEducativos;
     }
-    
-    
+
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
+    }
+
+    public ExperienciaEducativa(String codigo, String nombreEE, String descripcion, int numeroDeCreditos, Curso curso, ArrayList<ProgramaEducativo> programasEducativos, Academia academia) {
+        this.codigo = codigo;
+        this.nombreEE = nombreEE;
+        this.descripcion = descripcion;
+        this.numeroDeCreditos = numeroDeCreditos;
+        this.curso = curso;
+        this.programasEducativos = programasEducativos;
+        this.academia = academia;
+    }
+
 }

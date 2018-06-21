@@ -42,7 +42,6 @@ public class AcademiaDAO implements IAcademiaDAO{
                     Profesor coordinador = new Profesor();
                     coordinador.setNumeroDePersonal(resultadoCoordinador.getString("numeroCoordinador"));
                     academia.setCoordinadorDeAcademia(coordinador);
-                    System.out.println(academia.getNombreAcademia());
                 }
                 academias.add(academia);
             }
@@ -53,8 +52,30 @@ public class AcademiaDAO implements IAcademiaDAO{
     }
 
     @Override
-    public List<Academia> obtenerTodasLasAcademiasPorExperienciaEducativa(String codigoEE) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Academia obtenerAcademiaPorExperienciaEducativa(String codigoEE) {
+        conexion = DataBase.getDataBaseConnection();
+        Academia academia = new Academia();
+        String OBTENER_ACADEMIA = "SELECT* FROM experienciasEducativas_academias WHERE códigoEE = ?";
+        String OBTENER_COORDINADOR = "SELECT numeroCoordinador FROM academias WHERE nombreAcademia = ?";
+        try{
+            PreparedStatement statement = conexion.prepareStatement(OBTENER_ACADEMIA);
+            statement.setString(1, codigoEE);
+            ResultSet resultadoAcademia = statement.executeQuery();
+            while(resultadoAcademia.next()){
+                academia.setNombreAcademia(resultadoAcademia.getString("nombreAcademia"));
+                statement = conexion.prepareStatement(OBTENER_COORDINADOR);
+                statement.setString(1, academia.getNombreAcademia());
+                ResultSet resultadoCoordinador = statement.executeQuery();
+                while(resultadoCoordinador.next()){
+                    Profesor coordinador = new Profesor();
+                    coordinador.setNumeroDePersonal(resultadoCoordinador.getString("numeroCoordinador"));
+                    academia.setCoordinadorDeAcademia(coordinador);
+                }
+            }
+        }catch(SQLException excepcion){
+            
+        }
+        return academia;
     }
 
     @Override

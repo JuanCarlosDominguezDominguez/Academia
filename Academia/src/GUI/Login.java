@@ -153,8 +153,8 @@ public class Login extends javax.swing.JFrame {
             if(!buscarUsuario(numeroDePersonalIn.getText(), contraseniaIn.getText())){
                 JOptionPane.showMessageDialog(this, "Usuario no encontrado");
             }else{
-                SeleccionarAcademia.setNumeroDePersonal(numeroDePersonalIn.getText());
-                SeleccionarAcademia seleccionar = new SeleccionarAcademia();
+                SeleccionarExperienciaEducativa.setNumeroDePersonal(numeroDePersonalIn.getText());
+                SeleccionarExperienciaEducativa seleccionar = new SeleccionarExperienciaEducativa();
                 seleccionar.setVisible(true);
                 dispose();
             }

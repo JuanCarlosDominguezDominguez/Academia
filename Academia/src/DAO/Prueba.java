@@ -17,7 +17,7 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Profesor profesor = new Profesor();
+        /*Profesor profesor = new Profesor();
         ProfesorDAO profesorDAO = new ProfesorDAO();
         AcademiaDAO academiaDAO = new AcademiaDAO();
         CursoDAO cursoDAO = new CursoDAO();
@@ -29,6 +29,8 @@ public class Prueba {
         System.out.println(profesor.getAcademias().size());
         for(int i = 0; i < profesor.getAcademias().size(); i++){
             System.out.println(profesor.getAcademias().get(i).getNombreAcademia());
-        }
+        }*/
+        ExperienciaEducativaDAO experiencia = new ExperienciaEducativaDAO();
+        System.out.println(experiencia.obtenerExperienciaEducativa("PCS001").getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal());
     }
 }

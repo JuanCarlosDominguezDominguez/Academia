@@ -5,17 +5,46 @@
  */
 package GUI;
 
+import clases.Profesor;
+
 /**
  *
  * @author Juuan
  */
 public class PantallaCoordinador extends javax.swing.JFrame {
+    public static Profesor coordinador;
+    private static int posicionCurso;
+
+    public static int getPosicionCurso() {
+        return posicionCurso;
+    }
+
+    public static void setPosicionCurso(int posicionCurso) {
+        PantallaCoordinador.posicionCurso = posicionCurso;
+    }
+
+    public static Profesor getCoordinador() {
+        return coordinador;
+    }
+
+    public static void setCoordinador(Profesor coordinador) {
+        PantallaCoordinador.coordinador = coordinador;
+    }
 
     /**
      * Creates new form PantallaCoordinador
      */
     public PantallaCoordinador() {
         initComponents();
+        habilitarBotones();
+    }
+    
+    public void habilitarBotones(){
+        consultarJAButton.setEnabled(false);
+        visualizarAPButton.setEnabled(false);
+        visualizarMJAButton.setEnabled(false);
+        visualizarPCButton.setEnabled(true);
+        visualizarPTButton.setEnabled(false);
     }
 
     /**
@@ -30,10 +59,10 @@ public class PantallaCoordinador extends javax.swing.JFrame {
         panel = new javax.swing.JPanel();
         imagenUsuario = new javax.swing.JLabel();
         consultarJAButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        visualizarMJAButton = new javax.swing.JButton();
+        visualizarAPButton = new javax.swing.JButton();
+        visualizarPCButton = new javax.swing.JButton();
+        visualizarPTButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,13 +70,23 @@ public class PantallaCoordinador extends javax.swing.JFrame {
 
         consultarJAButton.setText("Consultar juntas de academia");
 
-        jButton2.setText("Visualizar minuta de junta de academia");
+        visualizarMJAButton.setText("Visualizar minuta de junta de academia");
 
-        jButton3.setText("Visualizar avance programatico");
+        visualizarAPButton.setText("Visualizar avance programatico");
 
-        jButton4.setText("Visualizar plan de curso");
+        visualizarPCButton.setText("Visualizar plan de curso");
+        visualizarPCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarPCButtonActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Visualizar plan de trabajo");
+        visualizarPTButton.setText("Visualizar plan de trabajo");
+        visualizarPTButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarPTButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -58,11 +97,11 @@ public class PantallaCoordinador extends javax.swing.JFrame {
                 .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(visualizarMJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(consultarJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(visualizarAPButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(visualizarPCButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(visualizarPTButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
@@ -75,13 +114,13 @@ public class PantallaCoordinador extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(consultarJAButton)
                 .addGap(33, 33, 33)
-                .addComponent(jButton2)
+                .addComponent(visualizarMJAButton)
                 .addGap(37, 37, 37)
-                .addComponent(jButton3)
+                .addComponent(visualizarAPButton)
                 .addGap(43, 43, 43)
-                .addComponent(jButton4)
+                .addComponent(visualizarPCButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(visualizarPTButton)
                 .addGap(28, 28, 28))
         );
 
@@ -100,6 +139,17 @@ public class PantallaCoordinador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void visualizarPTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPTButtonActionPerformed
+        
+    }//GEN-LAST:event_visualizarPTButtonActionPerformed
+
+    private void visualizarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPCButtonActionPerformed
+        VisualizarPlanDeCurso.setProfesor(coordinador);
+        VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
+        visualizarPlanDeCurso.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_visualizarPCButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,10 +189,10 @@ public class PantallaCoordinador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton consultarJAButton;
     private javax.swing.JLabel imagenUsuario;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton visualizarAPButton;
+    private javax.swing.JButton visualizarMJAButton;
+    private javax.swing.JButton visualizarPCButton;
+    private javax.swing.JButton visualizarPTButton;
     // End of variables declaration//GEN-END:variables
 }

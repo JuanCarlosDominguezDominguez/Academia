@@ -15,27 +15,28 @@ import clases.Profesor;
  *
  * @author Juuan
  */
-public class SeleccionarAcademia extends javax.swing.JFrame {
-    static private String numeroDePersonal;
+public class SeleccionarExperienciaEducativa extends javax.swing.JFrame {
+    private static String numeroDePersonal;
 
     public static String getNumeroDePersonal() {
         return numeroDePersonal;
     }
 
     public static void setNumeroDePersonal(String numeroDePersonal) {
-        SeleccionarAcademia.numeroDePersonal = numeroDePersonal;
+        SeleccionarExperienciaEducativa.numeroDePersonal = numeroDePersonal;
     }
     
     /**
      * Creates new form SeleccionarAcademia
      */
-    public SeleccionarAcademia() {
+    public SeleccionarExperienciaEducativa() {
         initComponents();
         
-        
-        
-        for(int i = 0; i < obtenerProfesor(numeroDePersonal).getAcademias().size(); i++){
-            academiaIn.addItem(obtenerProfesor(numeroDePersonal).getAcademias().get(i).getNombreAcademia());
+        Profesor profesor = new Profesor();
+        profesor = obtenerProfesor(numeroDePersonal);
+
+        for(int i = 0; i <profesor.getCursos().size(); i++){
+            experienciaEducativaIn.addItem(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE());
         }
         
     }
@@ -59,7 +60,6 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
-        academiaIn = new javax.swing.JComboBox<>();
         mensajeText = new javax.swing.JLabel();
         experienciaEducativaText = new javax.swing.JLabel();
         experienciaEducativaIn = new javax.swing.JComboBox<>();
@@ -68,7 +68,7 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mensajeText.setText("Bienvenido, elije una academia: ");
+        mensajeText.setText("Bienvenido");
 
         experienciaEducativaText.setText("Elije una experiencia educativa:");
 
@@ -80,6 +80,11 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
         });
 
         salirButton.setText("Salir");
+        salirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -88,34 +93,31 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(experienciaEducativaText)
-                            .addComponent(mensajeText)))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(academiaIn, 0, 293, Short.MAX_VALUE)
-                            .addComponent(experienciaEducativaIn, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(137, 137, 137)
+                        .addComponent(mensajeText))
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addComponent(aceptarButton)
                         .addGap(46, 46, 46)
-                        .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(experienciaEducativaText))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(experienciaEducativaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(mensajeText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(academiaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(experienciaEducativaText)
                 .addGap(18, 18, 18)
                 .addComponent(experienciaEducativaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarButton)
                     .addComponent(salirButton))
@@ -139,8 +141,33 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        
+        String experienciaEducativaSelecionada = experienciaEducativaIn.getSelectedItem().toString();
+        Profesor profesor = new Profesor();
+        profesor = obtenerProfesor(numeroDePersonal);
+        for(int i = 0; i < profesor.getCursos().size(); i++){
+            if(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE().equals(experienciaEducativaSelecionada)){
+                if(profesor.getCursos().get(i).getExperienciaEducativa().getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal().equals(profesor.getNumeroDePersonal())){
+                    PantallaCoordinador.setCoordinador(profesor);
+                    PantallaCoordinador.setPosicionCurso(i);
+                    PantallaCoordinador pantallaCoordinador = new PantallaCoordinador();
+                    pantallaCoordinador.setVisible(true);
+                    dispose();
+                }else{
+                    PantallaProfesor.setProfesor(profesor);
+                    PantallaProfesor.setPosicionCurso(i);
+                    PantallaProfesor pantallaProfesor= new PantallaProfesor();
+                    pantallaProfesor.setVisible(true);
+                    dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_aceptarButtonActionPerformed
+
+    private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_salirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,26 +186,26 @@ public class SeleccionarAcademia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarAcademia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarExperienciaEducativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarAcademia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarExperienciaEducativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarAcademia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarExperienciaEducativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarAcademia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarExperienciaEducativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeleccionarAcademia().setVisible(true);
+                new SeleccionarExperienciaEducativa().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> academiaIn;
     private javax.swing.JButton aceptarButton;
     private javax.swing.JComboBox<String> experienciaEducativaIn;
     private javax.swing.JLabel experienciaEducativaText;

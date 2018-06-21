@@ -6,7 +6,9 @@
 package DAO;
 
 import basedatos.DataBase;
+import clases.Academia;
 import clases.ExperienciaEducativa;
+import clases.Profesor;
 import clases.ProgramaEducativo;
 import interfacesdao.IExperienciaEducativaDAO;
 import java.sql.Connection;
@@ -30,22 +32,25 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         try{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_EXPERIENCIA);
             statement.setString(1, codigo);
-            ResultSet resultado = statement.executeQuery();
-            while(resultado.next()){
+            ResultSet resultadoExperiencia = statement.executeQuery();
+            while(resultadoExperiencia.next()){
                 experienciaEducativa.setCodigo(codigo);
-                experienciaEducativa.setDescripcion(resultado.getString("descripcion"));
-                experienciaEducativa.setNombreEE(resultado.getString("nombreEE"));
-                experienciaEducativa.setNumeroDeCreditos(resultado.getInt("noCreditos"));
+                experienciaEducativa.setDescripcion(resultadoExperiencia.getString("descripcion"));
+                experienciaEducativa.setNombreEE(resultadoExperiencia.getString("nombreEE"));
+                experienciaEducativa.setNumeroDeCreditos(resultadoExperiencia.getInt("noCreditos"));
+                //AGREGAR PROGRAMAS EDUCATIVOS A EXPERIENCIA EDUCATIVA
                 statement = conexion.prepareStatement(OBTENER_PROGRAMASEDU);
-                resultado = statement.executeQuery();
+                statement.setString(1, codigo);
+                ResultSet resultadoPrograma = statement.executeQuery();
                 ArrayList<ProgramaEducativo> programasEducativos = new ArrayList<ProgramaEducativo>();
-                while(resultado.next()){
-                    //AGREGAR PROGRAMAS EDUCATIVOS A EXPERIENCIA EDUCATIVA
+                while(resultadoPrograma.next()){
                     ProgramaEducativo programaEducativo = new ProgramaEducativo();
-                    programaEducativo.setNombrePE(resultado.getString("nombrePE"));
+                    programaEducativo.setNombrePE(resultadoPrograma.getString("nombrePE"));
                     programasEducativos.add(programaEducativo);
                 }
                 experienciaEducativa.setProgramasEducativos(programasEducativos);
+                AcademiaDAO academiaDAO = new AcademiaDAO();
+                experienciaEducativa.setAcademia(academiaDAO.obtenerAcademiaPorExperienciaEducativa(experienciaEducativa.getCodigo()));
             }
         }catch(SQLException excepcion){
             
