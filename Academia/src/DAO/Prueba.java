@@ -5,7 +5,9 @@
  */
 package DAO;
 
+import clases.CriterioDeEvaluacion;
 import clases.Profesor;
+import java.sql.Date;
 
 /**
  *
@@ -31,6 +33,17 @@ public class Prueba {
             System.out.println(profesor.getAcademias().get(i).getNombreAcademia());
         }*/
         ExperienciaEducativaDAO experiencia = new ExperienciaEducativaDAO();
-        System.out.println(experiencia.obtenerExperienciaEducativa("PCS001").getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal());
+        //System.out.println(experiencia.obtenerExperienciaEducativa("PCS001").getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal());
+        CriterioDeEvaluacion criterio = new CriterioDeEvaluacion();
+        criterio.setCriterioEvaluacion("hola");
+        criterio.setExperienciaEducativa(experiencia.obtenerExperienciaEducativa("PCS001"));;
+        criterio.setFecha(Date.valueOf("2010-10-10"));
+        criterio.setInstrumento("hola");
+        criterio.setPorcentaje("20");
+        criterio.setUnidadesEvaluadas("hola");
+        
+        CriterioDeEvaluacionDAO dao = new CriterioDeEvaluacionDAO();
+        dao.agregarCriterioDeEvaluacion(criterio);
+        System.out.println(dao.agregarCriterioDeEvaluacion(criterio));
     }
 }

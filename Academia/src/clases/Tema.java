@@ -13,14 +13,12 @@ import java.util.Date;
  */
 public class Tema {
     private String nombre;
-    private Date fecha;
 
     public Tema() {
     }
 
     public Tema(String nombre, Date fecha) {
         this.nombre = nombre;
-        this.fecha = fecha;
     }
 
     public String getNombre() {
@@ -31,13 +29,4 @@ public class Tema {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-    
-    
 }

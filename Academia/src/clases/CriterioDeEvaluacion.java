@@ -5,14 +5,14 @@
  */
 package clases;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author Juuan
  */
 public class CriterioDeEvaluacion {
-    private int unidad;
+    private String unidadesEvaluadas;
     private String criterioEvaluacion;
     private Date fecha;
     private String instrumento;
@@ -23,8 +23,8 @@ public class CriterioDeEvaluacion {
     
     }
 
-    public CriterioDeEvaluacion(int unidad, String criterioEvaluacion, Date fecha, String instrumento, String porcentaje, ExperienciaEducativa experienciaEducativa) {
-        this.unidad = unidad;
+    public CriterioDeEvaluacion(String unidadesEvaluadas, String criterioEvaluacion, Date fecha, String instrumento, String porcentaje, ExperienciaEducativa experienciaEducativa) {
+        this.unidadesEvaluadas = unidadesEvaluadas;
         this.criterioEvaluacion = criterioEvaluacion;
         this.fecha = fecha;
         this.instrumento = instrumento;
@@ -32,12 +32,12 @@ public class CriterioDeEvaluacion {
         this.experienciaEducativa = experienciaEducativa;
     }
 
-    public int getUnidad() {
-        return unidad;
+    public String getUnidadesEvaluadas() {
+        return unidadesEvaluadas;
     }
 
-    public void setUnidad(int unidad) {
-        this.unidad = unidad;
+    public void setUnidadesEvaluadas(String unidadesEvaluadas) {
+        this.unidadesEvaluadas = unidadesEvaluadas;
     }
 
     public String getCriterioEvaluacion() {

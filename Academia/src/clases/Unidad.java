@@ -5,8 +5,8 @@
  */
 package clases;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -32,6 +32,14 @@ public class Unidad {
         this.temas = temas;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     public String getNumeroUnidad() {
         return numeroUnidad;
     }
@@ -46,14 +54,6 @@ public class Unidad {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getTareasYPracticas() {

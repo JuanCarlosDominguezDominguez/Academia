@@ -6,16 +6,12 @@
 package DAO;
 
 import basedatos.DataBase;
-import clases.Curso;
 import clases.PlanDeCurso;
 import interfacesdao.IPlanDeCursoDAO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -23,12 +19,14 @@ import java.util.List;
  */
 public class PlanDeCursoDAO implements IPlanDeCursoDAO{
     
-    private static final String INSERTAR_PLAN = "INSERT INTO plancurso(objetivoGeneral, nombrePeriodo, nrc, estado) VALUES (?,?,?,?)";
+    private static final String INSERTAR_PLAN = "INSERT INTO plancurso(objetivoGeneral, nrc, estado) VALUES (?,?,?)";
     private static final String INSERTAR_UNIDAD = "INSERT INTO unidades(noUnidad, nombre, fechas, tareasYPracticas, tecnicaDidactica, idPlan) VALUES (?,?,?,?,?,?)";
     private static final String INSERTAR_TEMA = "INSER INTO tema(nombreTema, idUnidad) VALUES (?,?)";
-    private static final String INSERTAR_BIBLIOGRAFIA = "INSERT INTO bibliografia(autor, titulo, editorial, año) VALUES (?,?,?,?)";
-    private static final String INSERTAR_BIBLIOGRAFIA_PLAN = "INSERT INTO bibliografia_planCurso(bibliografia_idLibro, idPlan) VALUES(?,?)"; 
-    private static final String INSERTAR_CRITERIO = "INSERT INTO criterioEvaluacion(noUnidad, creterioEvaluacion, fechas, istrumento, porcentaje, códigoEE, idPlan) VALUES(?,?,?,?,?,?,?S)";
+    private static final String INSERTAR_BIBLIOGRAFIA = "INSERT INTO bibliografia(autor, titulo, editorial, año, idPlan) VALUES (?,?,?,?,?)";
+    private static final String OBTENER_ID_PLAN = "SELECT LAST_INSERT_ID(idPlan) FROM planCurso";
+    private static final String OBTENER_ID_UNIDAD = "SELECT LAST_INSERT_ID(idUnidad) FROM unidades";
+    private int idPlan = 0;
+    private int idUnidad = 0;
     private Connection conexion;
     
     @Override
@@ -39,27 +37,33 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             //AGREGAR PLAN DE CURSO
             PreparedStatement statement = conexion.prepareStatement(INSERTAR_PLAN);
             statement.setString(1, planDeCurso.getObjetivoGeneral());
-            statement.setString(2, planDeCurso.getCurso().getPeriodo().getNombrePeriodo());
-            statement.setInt(3, planDeCurso.getCurso().getNrc());
-            statement.setString(4, planDeCurso.getEstado());
+            statement.setInt(2, planDeCurso.getCurso().getNrc());
+            statement.setString(3, planDeCurso.getEstado());
             statement.execute();
-            ResultSet keyPlan = statement.getGeneratedKeys();
+            ResultSet keyPlan = statement.executeQuery(OBTENER_ID_PLAN);
+            while(keyPlan.next()){
+                idPlan = keyPlan.getInt("LAST_INSERT_ID(idPlan)");
+            }
             //AGREGAR UNIDAD
             for(int i = 0; i < planDeCurso.getUnidades().size(); i++){
                 statement = conexion.prepareStatement(INSERTAR_UNIDAD);
                 statement.setString(1, planDeCurso.getUnidades().get(i).getNumeroUnidad());
                 statement.setString(2, planDeCurso.getUnidades().get(i).getNombre());
-                statement.setDate(3, (Date)planDeCurso.getUnidades().get(i).getFecha());
+                statement.setDate(3, planDeCurso.getUnidades().get(i).getFecha());
                 statement.setString(4, planDeCurso.getUnidades().get(i).getTareasYPracticas());
                 statement.setString(5, planDeCurso.getUnidades().get(i).getTecnicaDidactica());
-                statement.setInt(6, keyPlan.getInt("idPlan"));
+                statement.setInt(6, idPlan);
                 statement.execute();
-                ResultSet keyUnidad = statement.getGeneratedKeys();
+                ResultSet keyUnidad = statement.executeQuery(OBTENER_ID_UNIDAD);
+                while(keyUnidad.next()){
+                    idUnidad = keyUnidad.getInt("LAST_INSERT_ID(idUnidad)");
+                }
+
                 //AGREGAR TEMA
-                for(int j = 0; j < planDeCurso.getUnidades().get(i).getTemas().size(); i++){
+                for(int j = 0; j < planDeCurso.getUnidades().get(i).getTemas().size(); j++){
                     statement = conexion.prepareStatement(INSERTAR_TEMA);
                     statement.setString(1, planDeCurso.getUnidades().get(i).getTemas().get(j).getNombre());
-                    statement.setInt(2, keyUnidad.getInt("idUnidad"));
+                    statement.setInt(2, idUnidad);
                 }
             }
             //AGREGAR BIBLIOGRAFIA
@@ -69,16 +73,17 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
                 statement.setString(2, planDeCurso.getBibliografias().get(i).getTituloLibro());
                 statement.setString(3, planDeCurso.getBibliografias().get(i).getEditorial());
                 statement.setInt(4, planDeCurso.getBibliografias().get(i).getAnio());
+                statement.setInt(5, idPlan);
                 statement.execute();
-                ResultSet keyBibliografia = statement.getGeneratedKeys();
-                statement = conexion.prepareStatement(INSERTAR_BIBLIOGRAFIA_PLAN);
-                statement.setInt(1, keyBibliografia.getInt("bibliografia_idLibro"));
-                statement.setInt(2, keyPlan.getInt("idPlan"));
             }
             //AGREGAR CRITERIO DE EVALUACION
+            for(int i = 0; i < planDeCurso.getCriteriosDeEvaluacion().size(); i++){
+                CriterioDeEvaluacionDAO criterioDeEvaluacionDAO = new CriterioDeEvaluacionDAO();
+                criterioDeEvaluacionDAO.agregarCriterioDeEvaluacion(planDeCurso.getCriteriosDeEvaluacion().get(i));
+            }
             agregar = true;
         }catch(SQLException excepcion){
-            
+            excepcion.printStackTrace();
         }
         return agregar;
     }

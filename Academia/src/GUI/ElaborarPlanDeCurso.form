@@ -71,9 +71,21 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="calendarioEvaluacionText" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bibliograficaText" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="planeacionText" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="calendarioEvaluacionText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="agregarCriterioDeEvaluacionButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="bibliograficaText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                  <Component id="agregarBibliografiaButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="planeacionText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="agregarPlaneacionButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="objetivoGeneralText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="academicoText" min="-2" max="-2" attributes="0"/>
@@ -105,7 +117,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="claveNrcText" alignment="0" max="32767" attributes="0"/>
                       <Component id="experienciaEducativaText" alignment="0" max="32767" attributes="0"/>
                       <Component id="programaEducativoText" alignment="0" max="32767" attributes="0"/>
@@ -114,30 +126,47 @@
                       <Component id="claveNrcOut" alignment="0" max="32767" attributes="0"/>
                       <Component id="experienciaEducativaOut" alignment="0" max="32767" attributes="0"/>
                       <Component id="programaEducativoOut" alignment="0" max="32767" attributes="0"/>
-                      <Component id="bloqueOut" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="seccionOut" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="bloqueOut" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="seccionOut" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="academicoText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="periodoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="academicoOut" alignment="1" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="periodoOut" alignment="1" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="academicoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="objetivoGeneralText" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="objetivoGeneralIn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="planeacionText" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="planeacionText" min="-2" max="-2" attributes="0"/>
+                      <Component id="agregarPlaneacionButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="89" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="bibliograficaText" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="87" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="calendarioEvaluacionText" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jScrollPane1" min="-2" pref="89" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="bibliograficaText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="agregarBibliografiaButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="87" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="calendarioEvaluacionText" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="agregarCriterioDeEvaluacionButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="89" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -193,6 +222,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="objetivoGeneralIn">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="objetivoGeneralInKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="planeacionText">
           <Properties>
@@ -363,6 +395,30 @@
               </Border>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="agregarBibliografiaButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarBibliografiaButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="agregarPlaneacionButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarPlaneacionButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="agregarCriterioDeEvaluacionButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarCriterioDeEvaluacionButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

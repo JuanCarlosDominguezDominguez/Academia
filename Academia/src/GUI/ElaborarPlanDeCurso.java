@@ -5,7 +5,13 @@
  */
 package GUI;
 
+import DAO.PlanDeCursoDAO;
+import clases.Bibliografia;
+import clases.CriterioDeEvaluacion;
+import clases.PlanDeCurso;
 import clases.Profesor;
+import clases.Unidad;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +20,34 @@ import clases.Profesor;
 public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     private static Profesor profesor;
     private static int posicionCurso;
+    public static ArrayList<Unidad> unidades = new ArrayList<Unidad>();
+    public static ArrayList<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
+    public static ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion = new ArrayList<CriterioDeEvaluacion>();
 
+    public static ArrayList<Unidad> getUnidades() {
+        return unidades;
+    }
+
+    public static void setUnidades(ArrayList<Unidad> unidades) {
+        ElaborarPlanDeCurso.unidades = unidades;
+    }
+
+    public static ArrayList<Bibliografia> getBibliografias() {
+        return bibliografias;
+    }
+
+    public static void setBibliografias(ArrayList<Bibliografia> bibliografias) {
+        ElaborarPlanDeCurso.bibliografias = bibliografias;
+    }
+
+    public static ArrayList<CriterioDeEvaluacion> getCriteriosDeEvaluacion() {
+        return criteriosDeEvaluacion;
+    }
+
+    public static void setCriteriosDeEvaluacion(ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion) {
+        ElaborarPlanDeCurso.criteriosDeEvaluacion = criteriosDeEvaluacion;
+    }
+    
     public static int getPosicionCurso() {
         return posicionCurso;
     }
@@ -91,6 +124,9 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         seccionOut = new javax.swing.JLabel();
         academicoOut = new javax.swing.JLabel();
         periodoOut = new javax.swing.JLabel();
+        agregarBibliografiaButton = new javax.swing.JButton();
+        agregarPlaneacionButton = new javax.swing.JButton();
+        agregarCriterioDeEvaluacionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +145,12 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         periodoText.setText("PERIODO: ");
 
         objetivoGeneralText.setText("OBJETIVO GENERAL: ");
+
+        objetivoGeneralIn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                objetivoGeneralInKeyTyped(evt);
+            }
+        });
 
         planeacionText.setText("PLANEACIÓN: ");
 
@@ -180,6 +222,27 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
 
         periodoOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        agregarBibliografiaButton.setText("+");
+        agregarBibliografiaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBibliografiaButtonActionPerformed(evt);
+            }
+        });
+
+        agregarPlaneacionButton.setText("+");
+        agregarPlaneacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarPlaneacionButtonActionPerformed(evt);
+            }
+        });
+
+        agregarCriterioDeEvaluacionButton.setText("+");
+        agregarCriterioDeEvaluacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarCriterioDeEvaluacionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -213,9 +276,18 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
                         .addComponent(seccionOut, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(calendarioEvaluacionText, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bibliograficaText, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(planeacionText, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                                .addComponent(calendarioEvaluacionText)
+                                .addGap(2, 2, 2)
+                                .addComponent(agregarCriterioDeEvaluacionButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                                .addComponent(bibliograficaText)
+                                .addGap(4, 4, 4)
+                                .addComponent(agregarBibliografiaButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                                .addComponent(planeacionText)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(agregarPlaneacionButton))
                             .addComponent(objetivoGeneralText, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addComponent(academicoText)
@@ -240,7 +312,7 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(claveNrcText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(experienciaEducativaText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(programaEducativoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -249,28 +321,38 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
                     .addComponent(claveNrcOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(experienciaEducativaOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(programaEducativoOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bloqueOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seccionOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bloqueOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seccionOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(academicoText)
-                    .addComponent(periodoText)
-                    .addComponent(academicoOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(periodoOut, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(academicoOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(periodoOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(academicoText)
+                        .addComponent(periodoText)))
+                .addGap(18, 18, 18)
                 .addComponent(objetivoGeneralText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(objetivoGeneralIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(planeacionText)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(planeacionText)
+                    .addComponent(agregarPlaneacionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bibliograficaText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(calendarioEvaluacionText)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bibliograficaText))
+                            .addComponent(agregarBibliografiaButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(calendarioEvaluacionText))
+                    .addComponent(agregarCriterioDeEvaluacionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -298,8 +380,40 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        
+        PlanDeCurso planDeCurso = new PlanDeCurso();
+        planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
+        planDeCurso.setBibliografias(bibliografias);
+        for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
+            criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+        }
+        planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
+        planDeCurso.setUnidades(unidades);
+        planDeCurso.setEstado("Completo");
+        planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
+        PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+        planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
     }//GEN-LAST:event_guardarButtonActionPerformed
+
+    private void agregarPlaneacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPlaneacionButtonActionPerformed
+        AgregarPlaneacion agregarPlaneacion = new AgregarPlaneacion();
+        agregarPlaneacion.setVisible(true);
+    }//GEN-LAST:event_agregarPlaneacionButtonActionPerformed
+
+    private void agregarBibliografiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBibliografiaButtonActionPerformed
+        AgregarBibliografia agregarBibliografia = new AgregarBibliografia();
+        agregarBibliografia.setVisible(true);
+    }//GEN-LAST:event_agregarBibliografiaButtonActionPerformed
+
+    private void agregarCriterioDeEvaluacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCriterioDeEvaluacionButtonActionPerformed
+        AgregarCriterioDeEvaluacion agregarCriterioDeEvaluacion = new AgregarCriterioDeEvaluacion();
+        agregarCriterioDeEvaluacion.setVisible(true);
+    }//GEN-LAST:event_agregarCriterioDeEvaluacionButtonActionPerformed
+
+    private void objetivoGeneralInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_objetivoGeneralInKeyTyped
+        if (objetivoGeneralIn.getText().length() >= 500){
+            evt.consume();
+        }
+    }//GEN-LAST:event_objetivoGeneralInKeyTyped
 
     /**
      * @param args the command line arguments
@@ -340,6 +454,9 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel academicoOut;
     private javax.swing.JLabel academicoText;
+    private javax.swing.JButton agregarBibliografiaButton;
+    private javax.swing.JButton agregarCriterioDeEvaluacionButton;
+    private javax.swing.JButton agregarPlaneacionButton;
     private javax.swing.JTable bibliografiaTable;
     private javax.swing.JLabel bibliograficaText;
     private javax.swing.JLabel bloqueOut;

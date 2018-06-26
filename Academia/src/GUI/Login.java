@@ -163,13 +163,13 @@ public class Login extends javax.swing.JFrame {
 
     private void contraseniaInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseniaInKeyTyped
         if(contraseniaIn.getText().length() >= 45){
-            JOptionPane.showMessageDialog(this, "Solo se aceptan un maximo de 45 caracteres");
+            evt.consume();
         }
     }//GEN-LAST:event_contraseniaInKeyTyped
 
     private void numeroDePersonalInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroDePersonalInKeyTyped
         if (numeroDePersonalIn.getText().length() >= 100){
-            JOptionPane.showMessageDialog(this, "Solo se aceptan un maximo de 100 caracteres");
+            evt.consume();
         }
     }//GEN-LAST:event_numeroDePersonalInKeyTyped
 
