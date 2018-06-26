@@ -5,6 +5,7 @@
  */
 package interfacesdao;
 
+import clases.Curso;
 import clases.PlanDeCurso;
 
 /**
@@ -13,6 +14,5 @@ import clases.PlanDeCurso;
  */
 public interface IPlanDeCursoDAO {
     boolean agregarPlanDeCurso(PlanDeCurso planDeCurso);
-    boolean eliminarPlanDeCurso(int idPlan);
-    PlanDeCurso obetenerPlanDeCurso(int idPlan);
+    PlanDeCurso obtenerPlanDeCursoPorCurso(Curso curso);
 }

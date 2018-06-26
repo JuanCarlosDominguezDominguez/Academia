@@ -10,7 +10,9 @@ import clases.CriterioDeEvaluacion;
 import interfacesdao.ICriterioDeEvaluacionDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -39,6 +41,30 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
             excepcion.printStackTrace();
         }
         return agregar;
+    }
+
+    @Override
+    public ArrayList<CriterioDeEvaluacion> obtenerCriteriosDeEvaluacionPorExperienciaEducativa(String codigoEE) {
+        ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion = new ArrayList<CriterioDeEvaluacion>();
+        String OBTENER_CRITERIO = "SELECT* FROM criterioEvaluacion WHERE códigoEE = ?";
+        conexion = DataBase.getDataBaseConnection();
+        try{
+            PreparedStatement statement = conexion.prepareStatement(OBTENER_CRITERIO);
+            statement.setString(1, codigoEE);
+            ResultSet resultado = statement.executeQuery();
+            while(resultado.next()){
+                CriterioDeEvaluacion criterioDeEvaluacion = new CriterioDeEvaluacion();
+                criterioDeEvaluacion.setUnidadesEvaluadas(resultado.getString("unidadesEvaluadas"));
+                criterioDeEvaluacion.setCriterioEvaluacion(resultado.getString("criterioEvaluacion"));
+                criterioDeEvaluacion.setFecha(resultado.getDate("fechas"));
+                criterioDeEvaluacion.setInstrumento(resultado.getString("instrumento"));
+                criterioDeEvaluacion.setPorcentaje(resultado.getString("porcentaje"));
+                criteriosDeEvaluacion.add(criterioDeEvaluacion);
+            }
+        }catch(SQLException excepcion){
+            excepcion.printStackTrace();
+        }
+        return criteriosDeEvaluacion;
     }
     
 }

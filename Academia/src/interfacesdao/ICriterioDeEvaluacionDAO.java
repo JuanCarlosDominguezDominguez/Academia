@@ -6,6 +6,7 @@
 package interfacesdao;
 
 import clases.CriterioDeEvaluacion;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,4 +14,5 @@ import clases.CriterioDeEvaluacion;
  */
 public interface ICriterioDeEvaluacionDAO {
     boolean agregarCriterioDeEvaluacion(CriterioDeEvaluacion criterioDeEvaluacion);
+    ArrayList<CriterioDeEvaluacion> obtenerCriteriosDeEvaluacionPorExperienciaEducativa(String codigoEE);
 }

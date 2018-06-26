@@ -12,6 +12,8 @@ import clases.PlanDeCurso;
 import clases.Profesor;
 import clases.Unidad;
 import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -82,8 +84,23 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         academicoOut.setText(profesor.getNombre());
         periodoOut.setText(profesor.getCursos().get(posicionCurso).getPeriodo().getNombrePeriodo());
     }
-    public void guardarPlaneacion(){
-        
+    public void cargarTablaPlaneacion(){
+        String encabezado[] = {"Unidad","Temas","Fechas", "Tareas y prácticas", "Técnica didactica"};
+        DefaultTableModel modelo = new DefaultTableModel(null, encabezado);
+        planeacionTable = new JTable(modelo);
+        String datos[] = null;
+        for(int i = 0; i < unidades.size(); i++){
+            datos[0] = unidades.get(i).getNumeroUnidad();
+            for(int j = 0; j < unidades.get(i).getTemas().size(); j++){
+                datos[1] = unidades.get(i).getTemas().get(j).getNombre();
+            }
+            datos[2] = String.valueOf(unidades.get(i).getFecha());
+            datos[3] = unidades.get(i).getTareasYPracticas();
+            datos[4] = unidades.get(i).getTecnicaDidactica();
+        }
+        modelo.addRow(datos);
+        planeacionTable.setModel(modelo);
+        planeacionTable.repaint();
     }
 
     /**

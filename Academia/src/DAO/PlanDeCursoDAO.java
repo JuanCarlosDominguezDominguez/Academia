@@ -6,12 +6,17 @@
 package DAO;
 
 import basedatos.DataBase;
+import clases.Bibliografia;
+import clases.Curso;
 import clases.PlanDeCurso;
+import clases.Tema;
+import clases.Unidad;
 import interfacesdao.IPlanDeCursoDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -89,13 +94,74 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
     }
 
     @Override
-    public boolean eliminarPlanDeCurso(int idPlan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public PlanDeCurso obetenerPlanDeCurso(int idPlan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PlanDeCurso obtenerPlanDeCursoPorCurso(Curso curso) {
+        PlanDeCurso planDeCurso= new PlanDeCurso();
+        ArrayList<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
+        ArrayList<Unidad> unidades = new ArrayList<Unidad>();
+        ArrayList<Tema> temas = new ArrayList<Tema>();
+        
+        String OBTENER_PLAN = "SELECT* FROM planCurso WHERE nrc = ?";
+        String OBTENER_BIBLIOGRAFIAS = "SELECT* FROM bibliografia WHERE idPlan = ?";
+        String OBTENER_UNIDADES = "SELECT* FROM unidades WHERE idPlan = ?";
+        String OBTENER_TEMAS = "SELECT* FROM tema WHERE idUnidad = ?";
+        int idPlan = 0;
+        int idUnidad = 0;
+        conexion = DataBase.getDataBaseConnection();
+        try{
+            //OBTENER PLAN DE CURSO
+            PreparedStatement statement = conexion.prepareStatement(OBTENER_PLAN);
+            statement.setInt(1, curso.getNrc());
+            ResultSet resultadoPlan = statement.executeQuery();
+            while(resultadoPlan.next()){
+                planDeCurso.setObjetivoGeneral(resultadoPlan.getString("objetivoGeneral"));
+                idPlan = resultadoPlan.getInt("idPlan");
+            }
+            //OBTENER BIBLIOGRAFIAS
+            statement = conexion.prepareStatement(OBTENER_BIBLIOGRAFIAS);
+            statement.setInt(1, idPlan);
+            ResultSet resultadoBibliografia = statement.executeQuery();
+            while(resultadoBibliografia.next()){
+                Bibliografia bibliografia = new Bibliografia();
+                bibliografia.setAutor(resultadoBibliografia.getString("autor"));
+                bibliografia.setTituloLibro(resultadoBibliografia.getString("titulo"));
+                bibliografia.setEditorial(resultadoBibliografia.getString("editorial"));
+                bibliografia.setAnio(resultadoBibliografia.getInt("año"));
+                bibliografias.add(bibliografia);
+            }
+            //OBTENER UNIDADES
+            statement = conexion.prepareStatement(OBTENER_UNIDADES);
+            statement.setInt(1, idPlan);
+            ResultSet resultadoUnidad = statement.executeQuery();
+            while(resultadoUnidad.next()){
+                Unidad unidad = new Unidad();
+                unidad.setFecha(resultadoUnidad.getDate("fechas"));
+                unidad.setNombre(resultadoUnidad.getString("nombre"));
+                unidad.setNumeroUnidad(resultadoUnidad.getString("noUnidad"));
+                unidad.setTareasYPracticas(resultadoUnidad.getString("tareasYPracticas"));
+                unidad.setTecnicaDidactica(resultadoUnidad.getString("tecnicaDidactica"));
+                idUnidad = resultadoUnidad.getInt("idUnidad");
+                //OBTENER TEMAS
+                statement = conexion.prepareStatement(OBTENER_TEMAS);
+                statement.setInt(1, idUnidad);
+                ResultSet resultadoTema = statement.executeQuery();
+                while(resultadoTema.next()){
+                    Tema tema = new Tema();
+                    tema.setNombre(resultadoTema.getString("nombreTema"));
+                    temas.add(tema);
+                }
+                unidad.setTemas(temas);
+                unidades.add(unidad);
+            }
+            //OBTENER CRITERIOS DE EVALUACION
+            CriterioDeEvaluacionDAO criterioDeEvaluacionDAO = new CriterioDeEvaluacionDAO();
+            
+            planDeCurso.setCriteriosDeEvaluacion(criterioDeEvaluacionDAO.obtenerCriteriosDeEvaluacionPorExperienciaEducativa(curso.getExperienciaEducativa().getCodigo()));
+            planDeCurso.setBibliografias(bibliografias);
+            planDeCurso.setUnidades(unidades);
+        }catch(SQLException excepcion){
+            
+        }
+        return planDeCurso;
     }
     
 }
