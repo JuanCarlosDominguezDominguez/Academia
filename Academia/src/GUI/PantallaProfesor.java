@@ -1,11 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.3.7
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
+import DAO.PlanDeCursoDAO;
+import clases.Curso;
+import clases.PlanDeCurso;
 import clases.Profesor;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,6 +25,9 @@ import javax.swing.table.DefaultTableModel;
 public class PantallaProfesor extends javax.swing.JFrame {
     private static Profesor profesor;
     private static int posicionCurso;
+    private Curso curso = new Curso();
+    private PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+    private PlanDeCurso planDeCurso = new PlanDeCurso();
 
     public static int getPosicionCurso() {
         return posicionCurso;
@@ -69,6 +82,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
         visualizarAPButton = new javax.swing.JButton();
         visualizarPCButton = new javax.swing.JButton();
         visualizarPTButton = new javax.swing.JButton();
+        seleccionarExperienciaButton = new javax.swing.JButton();
+        cerrarSesionButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,14 +124,35 @@ public class PantallaProfesor extends javax.swing.JFrame {
 
         visualizarPTButton.setText("Visualizar plan de trabajo");
 
+        seleccionarExperienciaButton.setText("Seleccionar otra experiencia educativa");
+        seleccionarExperienciaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarExperienciaButtonActionPerformed(evt);
+            }
+        });
+
+        cerrarSesionButton.setText("Cerrar sesión");
+        cerrarSesionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(seleccionarExperienciaButton)))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(cerrarSesionButton)))
+                .addGap(59, 59, 59)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -146,9 +182,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(visualizarAPButton)
                         .addGap(18, 18, 18)
-                        .addComponent(visualizarPCButton)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(visualizarPCButton)
+                            .addComponent(seleccionarExperienciaButton))
                         .addGap(18, 18, 18)
-                        .addComponent(visualizarPTButton))
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(visualizarPTButton)
+                            .addComponent(cerrarSesionButton)))
                     .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
@@ -168,20 +208,47 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void elaborarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elaborarPCButtonActionPerformed
-        ElaborarPlanDeCurso.setProfesor(profesor);
-        ElaborarPlanDeCurso.setPosicionCurso(posicionCurso);
-        ElaborarPlanDeCurso elaborarPlanDeCurso = new ElaborarPlanDeCurso();
-        elaborarPlanDeCurso.setVisible(true);
-        dispose();
+        curso = profesor.getCursos().get(posicionCurso);
+        planDeCurso = planDeCursoDAO.obtenerPlanDeCursoPorCurso(curso);
+        if(planDeCurso.getEstado().equals("Completo") && curso.getNrc()==planDeCurso.getCurso().getNrc()){
+            JOptionPane.showMessageDialog(this, "Ya se elaboro el plan de curso de esté curso.");
+        }else{
+            ElaborarPlanDeCurso.setProfesor(profesor);
+            ElaborarPlanDeCurso.setPosicionCurso(posicionCurso);
+            ElaborarPlanDeCurso elaborarPlanDeCurso = new ElaborarPlanDeCurso();
+            elaborarPlanDeCurso.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_elaborarPCButtonActionPerformed
 
     private void visualizarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPCButtonActionPerformed
-        VisualizarPlanDeCurso.setProfesor(profesor);
-        VisualizarPlanDeCurso.setPosicionCurso(posicionCurso);
-        VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
-        visualizarPlanDeCurso.setVisible(true);
-        dispose();
+        curso = profesor.getCursos().get(posicionCurso);
+        try {
+            planDeCurso = planDeCursoDAO.obtenerPlanDeCursoPorCurso(curso);
+            if (planDeCurso.getEstado().equals("Incompleto")) {
+                JOptionPane.showMessageDialog(this, "No hay un plan de curso que mostrar.");
+            } else {
+                VisualizarPlanDeCurso.setProfesor(profesor);
+                VisualizarPlanDeCurso.setPosicionCurso(posicionCurso);
+                VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
+                visualizarPlanDeCurso.setVisible(true);
+                dispose();
+            }
+        } catch (NullPointerException excepcion) {
+            java.util.logging.Logger.getLogger(PantallaProfesor.class.getName()).log(Level.SEVERE, null, excepcion);
+            JOptionPane.showMessageDialog(this, "No hay un plan de curso que mostrar");
+        }
     }//GEN-LAST:event_visualizarPCButtonActionPerformed
+
+    private void seleccionarExperienciaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarExperienciaButtonActionPerformed
+        SeleccionarExperienciaEducativa seleccionar = new SeleccionarExperienciaEducativa();
+        seleccionar.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_seleccionarExperienciaButtonActionPerformed
+
+    private void cerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_cerrarSesionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,12 +286,14 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrarSesionButton;
     private javax.swing.JButton consultarJAButton;
     private javax.swing.JButton elaborarAPButton;
     private javax.swing.JButton elaborarPCButton;
     private javax.swing.JLabel imagenUsuario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton seleccionarExperienciaButton;
     private javax.swing.JButton visualizarAPButton;
     private javax.swing.JButton visualizarMJAButton;
     private javax.swing.JButton visualizarPCButton;

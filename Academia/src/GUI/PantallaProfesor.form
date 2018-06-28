@@ -56,9 +56,20 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="imagenUsuario" min="-2" pref="129" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="imagenUsuario" min="-2" pref="129" max="-2" attributes="0"/>
+                              <Component id="seleccionarExperienciaButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="cerrarSesionButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -93,9 +104,15 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="visualizarAPButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="visualizarPCButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="visualizarPCButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="seleccionarExperienciaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="visualizarPTButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="visualizarPTButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cerrarSesionButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Component id="imagenUsuario" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
@@ -154,6 +171,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Visualizar plan de trabajo"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="seleccionarExperienciaButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Seleccionar otra experiencia educativa"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seleccionarExperienciaButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="cerrarSesionButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cerrarSesionButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

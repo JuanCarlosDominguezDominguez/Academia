@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.1.3
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package clases;
 
 import java.util.ArrayList;
@@ -16,15 +21,25 @@ public class Academia {
     private ArrayList<Profesor> profesores;
     private Profesor coordinadorDeAcademia;
     private ArrayList<ProgramaEducativo> programasEducativos;
+    private ArrayList<ExperienciaEducativa> experienciasEducativas;
 
     public Academia() {
     }
 
-    public Academia(String nombreAcademia, ArrayList<Profesor> profesores, Profesor coordinadorDeAcademia, ArrayList<ProgramaEducativo> programasEducativos) {
+    public Academia(String nombreAcademia, ArrayList<Profesor> profesores, Profesor coordinadorDeAcademia, ArrayList<ProgramaEducativo> programasEducativos, ArrayList<ExperienciaEducativa> experienciasEducativas) {
         this.nombreAcademia = nombreAcademia;
         this.profesores = profesores;
         this.coordinadorDeAcademia = coordinadorDeAcademia;
         this.programasEducativos = programasEducativos;
+        this.experienciasEducativas = experienciasEducativas;
+    }
+
+    public ArrayList<ExperienciaEducativa> getExperienciasEducativas() {
+        return experienciasEducativas;
+    }
+
+    public void setExperienciasEducativas(ArrayList<ExperienciaEducativa> experienciasEducativas) {
+        this.experienciasEducativas = experienciasEducativas;
     }
 
     public String getNombreAcademia() {

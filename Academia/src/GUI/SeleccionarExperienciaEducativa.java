@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.2.1
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
 import DAO.AcademiaDAO;
@@ -37,9 +42,15 @@ public class SeleccionarExperienciaEducativa extends javax.swing.JFrame {
         profesor = obtenerProfesor(numeroDePersonal);
 
         for(int i = 0; i <profesor.getCursos().size(); i++){
-            experienciaEducativaIn.addItem(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE());
+            experienciaEducativaIn.addItem(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE()+"(Profesor)");
         }
-        
+        for(int i = 0; i < profesor.getAcademias().size(); i++){
+            if(profesor.getNumeroDePersonal().equals(profesor.getAcademias().get(i).getCoordinadorDeAcademia().getNumeroDePersonal())){
+                for(int j = 0; j < profesor.getAcademias().get(i).getExperienciasEducativas().size(); j++){
+                    experienciaEducativaIn.addItem(profesor.getAcademias().get(i).getExperienciasEducativas().get(j).getNombreEE()+"(Coordinador)");
+                }
+            }
+        }
     }
     
     public Profesor obtenerProfesor(String numeroDePersonal){
@@ -149,19 +160,24 @@ public class SeleccionarExperienciaEducativa extends javax.swing.JFrame {
             experienciaEducativaSelecionada = experienciaEducativaIn.getSelectedItem().toString();
             Profesor profesor = new Profesor();
             profesor = obtenerProfesor(numeroDePersonal);
-            for(int i = 0; i < profesor.getCursos().size(); i++){
-                if(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE().equals(experienciaEducativaSelecionada)){
-                    if(profesor.getCursos().get(i).getExperienciaEducativa().getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal().equals(profesor.getNumeroDePersonal())){
+            for (int i = 0; i < profesor.getCursos().size(); i++) {
+                //VERIFICA EL USUARIO ES COORDINADOR O PROFESOR DE LA EXPERIENCIA EDUCATIVA SELECCIONADA
+                if (experienciaEducativaSelecionada.equals(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE() + "(Profesor)")) {
+                    PantallaProfesor.setProfesor(profesor);
+                    PantallaProfesor.setPosicionCurso(i);
+                    PantallaProfesor pantallaProfesor = new PantallaProfesor();
+                    pantallaProfesor.setVisible(true);
+                    dispose();
+                }
+            }
+            for (int q = 0; q < profesor.getAcademias().size(); q++) {
+                for (int j = 0; j < profesor.getAcademias().get(q).getExperienciasEducativas().size(); j++) {
+                    if (experienciaEducativaSelecionada.equals(profesor.getAcademias().get(q).getExperienciasEducativas().get(j).getNombreEE()+"(Coordinador)")) {
                         PantallaCoordinador.setCoordinador(profesor);
-                        PantallaCoordinador.setPosicionCurso(i);
+                        PantallaCoordinador.setPosicionCursoOAcademia(q);
+                        PantallaCoordinador.setPosicionExperiencia(j);
                         PantallaCoordinador pantallaCoordinador = new PantallaCoordinador();
                         pantallaCoordinador.setVisible(true);
-                        dispose();
-                    }else{
-                        PantallaProfesor.setProfesor(profesor);
-                        PantallaProfesor.setPosicionCurso(i);
-                        PantallaProfesor pantallaProfesor= new PantallaProfesor();
-                        pantallaProfesor.setVisible(true);
                         dispose();
                     }
                 }

@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.4.6
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package DAO;
 
 import basedatos.DataBase;
@@ -29,12 +34,15 @@ public class ProfesorDAO implements IProfesorDAO{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_PROFESOR);
             statement.setString(1, numeroDePersonal);
             ResultSet resultado  = statement.executeQuery();
+            //SE OBTIENE EL PROFESOR
             while(resultado.next()){
                 profesor.setNumeroDePersonal(numeroDePersonal);
                 profesor.setNombre(resultado.getString("Nombre"));
                 profesor.setGradoAcademico(resultado.getString("gradoAcadémico"));
             }
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(ProfesorDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(ProfesorDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {

@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 5.8.2
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package DAO;
 
 import basedatos.DataBase;
@@ -65,7 +70,7 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
                     idUnidad = keyUnidad.getInt("LAST_INSERT_ID(idUnidad)");
                 }
 
-                //AGREGAR TEMA
+                //AGREGAR TEMAS POR CADA UNIDAD
                 for(int j = 0; j < planDeCurso.getUnidades().get(i).getTemas().size(); j++){
                     statement = conexion.prepareStatement(INSERTAR_TEMA);
                     statement.setString(1, planDeCurso.getUnidades().get(i).getTemas().get(j).getNombre());
@@ -90,6 +95,8 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             }
             agregar = true;
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {
@@ -122,6 +129,7 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             ResultSet resultadoPlan = statement.executeQuery();
             while(resultadoPlan.next()){
                 planDeCurso.setObjetivoGeneral(resultadoPlan.getString("objetivoGeneral"));
+                planDeCurso.setEstado(resultadoPlan.getString("estado"));
                 idPlan = resultadoPlan.getInt("idPlan");
             }
             //OBTENER BIBLIOGRAFIAS
@@ -148,7 +156,7 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
                 unidad.setTareasYPracticas(resultadoUnidad.getString("tareasYPracticas"));
                 unidad.setTecnicaDidactica(resultadoUnidad.getString("tecnicaDidactica"));
                 idUnidad = resultadoUnidad.getInt("idUnidad");
-                //OBTENER TEMAS
+                //OBTENER TEMAS POR CADA UNIDAD
                 statement = conexion.prepareStatement(OBTENER_TEMAS);
                 statement.setInt(1, idUnidad);
                 ResultSet resultadoTema = statement.executeQuery();
@@ -167,6 +175,8 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             planDeCurso.setBibliografias(bibliografias);
             planDeCurso.setUnidades(unidades);
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {

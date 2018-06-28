@@ -1,11 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.3.2
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
+import DAO.PlanDeCursoDAO;
+import clases.Curso;
+import clases.ExperienciaEducativa;
+import clases.PlanDeCurso;
 import clases.Profesor;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,14 +24,26 @@ import clases.Profesor;
  */
 public class PantallaCoordinador extends javax.swing.JFrame {
     public static Profesor coordinador;
-    private static int posicionCurso;
+    private static int posicionCursoOAcademia;
+    private static int posicionExperiencia;
+    private Curso curso = new Curso();
+    private PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+    private PlanDeCurso planDeCurso = new PlanDeCurso();
 
-    public static int getPosicionCurso() {
-        return posicionCurso;
+    public static int getPosicionCursoOAcademia() {
+        return posicionCursoOAcademia;
     }
 
-    public static void setPosicionCurso(int posicionCurso) {
-        PantallaCoordinador.posicionCurso = posicionCurso;
+    public static void setPosicionCursoOAcademia(int posicionCursoOAcademia) {
+        PantallaCoordinador.posicionCursoOAcademia = posicionCursoOAcademia;
+    }
+
+    public static int getPosicionExperiencia() {
+        return posicionExperiencia;
+    }
+
+    public static void setPosicionExperiencia(int posicionExperiencia) {
+        PantallaCoordinador.posicionExperiencia = posicionExperiencia;
     }
 
     public static Profesor getCoordinador() {
@@ -63,6 +86,8 @@ public class PantallaCoordinador extends javax.swing.JFrame {
         visualizarAPButton = new javax.swing.JButton();
         visualizarPCButton = new javax.swing.JButton();
         visualizarPTButton = new javax.swing.JButton();
+        seleccionarExperienciaButton = new javax.swing.JButton();
+        cerrarSesionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,40 +113,67 @@ public class PantallaCoordinador extends javax.swing.JFrame {
             }
         });
 
+        seleccionarExperienciaButton.setText("Seleccionar otra experiencia educativa");
+        seleccionarExperienciaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarExperienciaButtonActionPerformed(evt);
+            }
+        });
+
+        cerrarSesionButton.setText("Cerrar sesión");
+        cerrarSesionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(visualizarMJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(consultarJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(visualizarAPButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(visualizarPCButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(visualizarPTButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(visualizarMJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(consultarJAButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(visualizarAPButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(visualizarPCButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(visualizarPTButton, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(seleccionarExperienciaButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(cerrarSesionButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(consultarJAButton)
-                .addGap(33, 33, 33)
-                .addComponent(visualizarMJAButton)
-                .addGap(37, 37, 37)
-                .addComponent(visualizarAPButton)
-                .addGap(43, 43, 43)
-                .addComponent(visualizarPCButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(visualizarPTButton)
-                .addGap(28, 28, 28))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(consultarJAButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(visualizarMJAButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(visualizarAPButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(visualizarPCButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(visualizarPTButton))
+                    .addComponent(imagenUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(seleccionarExperienciaButton)
+                .addGap(18, 18, 18)
+                .addComponent(cerrarSesionButton)
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,11 +197,36 @@ public class PantallaCoordinador extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizarPTButtonActionPerformed
 
     private void visualizarPCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPCButtonActionPerformed
-        VisualizarPlanDeCurso.setProfesor(coordinador);
-        VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
-        visualizarPlanDeCurso.setVisible(true);
-        dispose();
+        curso = coordinador.getAcademias().get(posicionCursoOAcademia).getExperienciasEducativas().get(posicionExperiencia).getCurso();
+        if (curso == null) {
+            JOptionPane.showMessageDialog(this, "La experiencia educativa no tiene un curso asignado.");
+        } else {
+            try {
+                planDeCurso = planDeCursoDAO.obtenerPlanDeCursoPorCurso(curso);
+                if (planDeCurso.getEstado().equals("Incompleto")) {
+                    JOptionPane.showMessageDialog(this, "No hay un plan de curso que mostrar.");
+                } else {
+                    VisualizarPlanDeCurso.setProfesor(coordinador);
+                    VisualizarPlanDeCurso.setPosicionCurso(posicionCursoOAcademia);
+                    VisualizarPlanDeCurso visualizarPlanDeCurso = new VisualizarPlanDeCurso();
+                    visualizarPlanDeCurso.setVisible(true);
+                }
+            } catch (NullPointerException excepcion) {
+                java.util.logging.Logger.getLogger(PantallaCoordinador.class.getName()).log(Level.SEVERE, null, excepcion);
+                JOptionPane.showMessageDialog(this, "No hay un plan de curso que mostrar");
+            }
+        }
     }//GEN-LAST:event_visualizarPCButtonActionPerformed
+
+    private void seleccionarExperienciaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarExperienciaButtonActionPerformed
+        SeleccionarExperienciaEducativa seleccionar = new SeleccionarExperienciaEducativa();
+        seleccionar.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_seleccionarExperienciaButtonActionPerformed
+
+    private void cerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_cerrarSesionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,9 +264,11 @@ public class PantallaCoordinador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrarSesionButton;
     private javax.swing.JButton consultarJAButton;
     private javax.swing.JLabel imagenUsuario;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton seleccionarExperienciaButton;
     private javax.swing.JButton visualizarAPButton;
     private javax.swing.JButton visualizarMJAButton;
     private javax.swing.JButton visualizarPCButton;

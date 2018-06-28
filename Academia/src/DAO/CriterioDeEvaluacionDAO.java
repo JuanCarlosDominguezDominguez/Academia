@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 2.3.6
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package DAO;
 
 import basedatos.DataBase;
@@ -28,6 +33,7 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
         boolean agregar = false;
         conexion = DataBase.getDataBaseConnection();
         try{
+            //SE ALMACENA EL CRITERIO DE EVALUACION
             PreparedStatement statement = conexion.prepareStatement(INSERTAR_CRITERIO);
             statement.setString(1, criterioDeEvaluacion.getUnidadesEvaluadas());
             statement.setString(2, criterioDeEvaluacion.getCriterioEvaluacion());
@@ -39,6 +45,8 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
             statement.execute();
             agregar = true;
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {
@@ -59,6 +67,7 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_CRITERIO);
             statement.setString(1, codigoEE);
             ResultSet resultado = statement.executeQuery();
+            //SE OBTIENE EL CRITERIO DE EVALUACION
             while(resultado.next()){
                 CriterioDeEvaluacion criterioDeEvaluacion = new CriterioDeEvaluacion();
                 criterioDeEvaluacion.setUnidadesEvaluadas(resultado.getString("unidadesEvaluadas"));
@@ -69,6 +78,8 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
                 criteriosDeEvaluacion.add(criterioDeEvaluacion);
             }
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {

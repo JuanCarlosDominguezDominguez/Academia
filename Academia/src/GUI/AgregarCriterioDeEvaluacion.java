@@ -1,11 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.3.8
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
-import static GUI.ElaborarPlanDeCurso.criteriosDeEvaluacion;
 import clases.CriterioDeEvaluacion;
 import java.sql.Date;
 import java.text.ParseException;
@@ -158,9 +162,9 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
                                     .addGroup(panelLayout.createSequentialGroup()
                                         .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(61, 61, 61)
-                                        .addComponent(cancelarButton)
-                                        .addGap(0, 96, Short.MAX_VALUE))
-                                    .addComponent(porcentajeIn)))))
+                                        .addComponent(cancelarButton))
+                                    .addComponent(porcentajeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 96, Short.MAX_VALUE))))
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(criterioDeEvaluacionText))
@@ -285,10 +289,7 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
 
     private void porcentajeInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeInKeyTyped
         char caracteres= evt.getKeyChar();
-        if ((caracteres<'0'||caracteres>'9') && caracteres != '-') evt.consume();
-        if(fechaIn.getText().length() >= 10){
-            evt.consume();
-        }
+        if (caracteres<'0'||caracteres>'9') evt.consume();
         if(porcentajeIn.getText().length() >= 2){
             evt.consume();
         }

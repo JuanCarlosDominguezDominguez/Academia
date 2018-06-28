@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.2.3
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package DAO;
 
 import basedatos.DataBase;
@@ -14,9 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,20 +37,27 @@ public class AcademiaDAO implements IAcademiaDAO{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_NOMBRE_ACADEMIA);
             statement.setString(1, numeroDePersonal);
             ResultSet resultadoAcademia = statement.executeQuery();
+            //SE OBTIENE LA ACADEMIA
             while(resultadoAcademia.next()){
                 Academia academia = new Academia();
                 academia.setNombreAcademia(resultadoAcademia.getString("nombreAcademia"));
                 statement = conexion.prepareStatement(OBTENER_COORDINADOR);
                 statement.setString(1, academia.getNombreAcademia());
                 ResultSet resultadoCoordinador = statement.executeQuery();
+                //SE OBTIENE EL COORDINADOR POR CADA  Y SE LE ASIGNA A CADA ACADEMIA
                 while (resultadoCoordinador.next()){
                     Profesor coordinador = new Profesor();
                     coordinador.setNumeroDePersonal(resultadoCoordinador.getString("numeroCoordinador"));
                     academia.setCoordinadorDeAcademia(coordinador);
                 }
+                //SE AGREGAN TODAS LAS EXPERIENCIAS EDUCATIVAS POR ACADEMIA
+                ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
+                academia.setExperienciasEducativas(experienciaEducativaDAO.obtenerExperienciasEducativasPorAcademia(academia.getNombreAcademia()));
                 academias.add(academia);
             }
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {
@@ -69,11 +79,13 @@ public class AcademiaDAO implements IAcademiaDAO{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_ACADEMIA);
             statement.setString(1, codigoEE);
             ResultSet resultadoAcademia = statement.executeQuery();
+            //SE OBTIENE LA ACADEMIA
             while(resultadoAcademia.next()){
                 academia.setNombreAcademia(resultadoAcademia.getString("nombreAcademia"));
                 statement = conexion.prepareStatement(OBTENER_COORDINADOR);
                 statement.setString(1, academia.getNombreAcademia());
                 ResultSet resultadoCoordinador = statement.executeQuery();
+                //SE AGREGAR EL COORDINADOR DE DICHA ACADEMIA
                 while(resultadoCoordinador.next()){
                     Profesor coordinador = new Profesor();
                     coordinador.setNumeroDePersonal(resultadoCoordinador.getString("numeroCoordinador"));
@@ -81,6 +93,8 @@ public class AcademiaDAO implements IAcademiaDAO{
                 }
             }
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {

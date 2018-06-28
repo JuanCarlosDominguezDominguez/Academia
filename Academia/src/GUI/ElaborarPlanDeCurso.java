@@ -1,20 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 3.9.6
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
 import DAO.PlanDeCursoDAO;
 import clases.Bibliografia;
 import clases.CriterioDeEvaluacion;
+import clases.Curso;
 import clases.PlanDeCurso;
 import clases.Profesor;
 import clases.Unidad;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +33,9 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     public static ArrayList<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     public static ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion = new ArrayList<CriterioDeEvaluacion>();
     public static DefaultTableModel modelo;
+    private static Curso curso = new Curso();
+    private static PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+    private static PlanDeCurso planDeCurso = new PlanDeCurso();
 
     public static ArrayList<Unidad> getUnidades() {
         return unidades;
@@ -99,10 +107,20 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
      */
     public ElaborarPlanDeCurso() {
         initComponents();
-        mostrarDatosPrincipales();
-        eliminarBibliografiaButton.setEnabled(false);
-        eliminarPlaneacionButton.setEnabled(false);
-        eliminarEvaluacionButton.setEnabled(false);
+        curso = profesor.getCursos().get(posicionCurso);
+        planDeCurso = planDeCursoDAO.obtenerPlanDeCursoPorCurso(curso);
+        if(planDeCurso.getEstado().equals("Incompleto")){
+            mostrarDatosPrincipales();
+            objetivoGeneralIn.setText(planDeCurso.getObjetivoGeneral());
+            cargarTablaBibliografiaIncompleta();
+            cargarTablaEvaluacionesIncompleta();
+            cargarTablaPlaneacionIncompleta();
+        }else{
+            mostrarDatosPrincipales();
+            eliminarBibliografiaButton.setEnabled(false);
+            eliminarPlaneacionButton.setEnabled(false);
+            eliminarEvaluacionButton.setEnabled(false);
+        }
     }
     
     public void mostrarDatosPrincipales(){
@@ -113,6 +131,45 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         seccionOut.setText(Integer.toString(profesor.getCursos().get(posicionCurso).getSeccion()));
         academicoOut.setText(profesor.getNombre());
         periodoOut.setText(profesor.getCursos().get(posicionCurso).getPeriodo().getNombrePeriodo());
+    }
+    public static void cargarTablaPlaneacionIncompleta(){
+        modelo = (DefaultTableModel) planeacionTable.getModel();
+        for(int i = 0; i<planDeCurso.getUnidades().size(); i++){
+            Object nuevo[]= {""};
+            modelo.addRow(nuevo);
+            planeacionTable.setValueAt(planDeCurso.getUnidades().get(i).getNombre(), i, 0);
+            for(int j = 0; j<planDeCurso.getUnidades().get(i).getTemas().size();j++){
+                planeacionTable.setValueAt(planDeCurso.getUnidades().get(i).getTemas().get(j).getNombre(), i, 1);
+            }
+            planeacionTable.setValueAt(planDeCurso.getUnidades().get(i).getFecha(), i, 2);
+            planeacionTable.setValueAt(planDeCurso.getUnidades().get(i).getTareasYPracticas(), i, 3);
+            planeacionTable.setValueAt(planDeCurso.getUnidades().get(i).getTecnicaDidactica(), i, 4);
+        }
+    }
+    
+    public static void cargarTablaBibliografiaIncompleta(){
+        modelo = (DefaultTableModel) bibliografiaTable.getModel();
+        for(int i = 0; i < planDeCurso.getBibliografias().size();i++){
+            Object nuevo[]= {""};
+            modelo.addRow(nuevo);
+            bibliografiaTable.setValueAt(planDeCurso.getBibliografias().get(i).getAutor(), i, 0);
+            bibliografiaTable.setValueAt(planDeCurso.getBibliografias().get(i).getTituloLibro(), i, 1);
+            bibliografiaTable.setValueAt(planDeCurso.getBibliografias().get(i).getEditorial(), i, 2);
+            bibliografiaTable.setValueAt(planDeCurso.getBibliografias().get(i).getAnio(), i, 3);
+        }
+    }
+    
+    public static void cargarTablaEvaluacionesIncompleta(){
+        modelo = (DefaultTableModel) calendarioEvaluacionTable.getModel();
+        for(int i = 0; i < planDeCurso.getCriteriosDeEvaluacion().size();i++){
+            Object nuevo[]= {""};
+            modelo.addRow(nuevo);
+            calendarioEvaluacionTable.setValueAt(planDeCurso.getCriteriosDeEvaluacion().get(i).getUnidadesEvaluadas(), i, 0);
+            calendarioEvaluacionTable.setValueAt(planDeCurso.getCriteriosDeEvaluacion().get(i).getFecha(), i, 1);
+            calendarioEvaluacionTable.setValueAt(planDeCurso.getCriteriosDeEvaluacion().get(i).getCriterioEvaluacion(), i, 2);
+            calendarioEvaluacionTable.setValueAt(planDeCurso.getCriteriosDeEvaluacion().get(i).getInstrumento(), i, 3);
+            calendarioEvaluacionTable.setValueAt(planDeCurso.getCriteriosDeEvaluacion().get(i).getPorcentaje(), i, 4);
+        }
     }
     
     public boolean validarCampos(){
@@ -295,8 +352,18 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         });
 
         cancelarButton.setText("Cancelar");
+        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarButtonActionPerformed(evt);
+            }
+        });
 
         guardarComoBorradorButton.setText("Guardar como borrador");
+        guardarComoBorradorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarComoBorradorButtonActionPerformed(evt);
+            }
+        });
 
         claveNrcOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -501,18 +568,28 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         if(!validarCampos()){
             JOptionPane.showMessageDialog(this, "Debes llenar al menos el objetivo general y un campo de cada tabla");
         }else{
-            PlanDeCurso planDeCurso = new PlanDeCurso();
-            planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
-            planDeCurso.setBibliografias(bibliografias);
-            for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
-                criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+            
+            int opcion = JOptionPane.showConfirmDialog(null, "Si guarda el plan de curso ya no se podra modificar, ¿esta seguro de guardarlo permanentemente?", "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+            if (opcion == 0){
+                PlanDeCurso planDeCurso = new PlanDeCurso();
+                planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
+                planDeCurso.setBibliografias(bibliografias);
+                for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
+                    criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+                }
+                planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
+                planDeCurso.setUnidades(unidades);
+                planDeCurso.setEstado("Completo");
+                planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
+                PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+                planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
+
+                PantallaProfesor.setProfesor(profesor);
+                PantallaProfesor.setPosicionCurso(posicionCurso);
+                PantallaProfesor pantallaProfesor = new PantallaProfesor();
+                pantallaProfesor.setVisible(true);
+                dispose();
             }
-            planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
-            planDeCurso.setUnidades(unidades);
-            planDeCurso.setEstado("Completo");
-            planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
-            PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
-            planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
         }
     }//GEN-LAST:event_guardarButtonActionPerformed
 
@@ -573,6 +650,46 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
             eliminarEvaluacionButton.setEnabled(false);
         }
     }//GEN-LAST:event_eliminarEvaluacionButtonActionPerformed
+
+    private void guardarComoBorradorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarComoBorradorButtonActionPerformed
+        if(!validarCampos()){
+            JOptionPane.showMessageDialog(this, "Debes llenar al menos el objetivo general y un campo de cada tabla");
+        }else{
+            
+            int opcion = JOptionPane.showConfirmDialog(null, "Seguro que quieres guardar como borrador?", "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+            if (opcion == 0){
+                PlanDeCurso planDeCurso = new PlanDeCurso();
+                planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
+                planDeCurso.setBibliografias(bibliografias);
+                for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
+                    criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+                }
+                planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
+                planDeCurso.setUnidades(unidades);
+                planDeCurso.setEstado("Incompleto");
+                planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
+                PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+                planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
+
+                PantallaProfesor.setProfesor(profesor);
+                PantallaProfesor.setPosicionCurso(posicionCurso);
+                PantallaProfesor pantallaProfesor = new PantallaProfesor();
+                pantallaProfesor.setVisible(true);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_guardarComoBorradorButtonActionPerformed
+
+    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(null, "Seguro que no deseas guardar los cambios?", "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+        if (opcion == 0) {
+            PantallaProfesor.setProfesor(profesor);
+            PantallaProfesor.setPosicionCurso(posicionCurso);
+            PantallaProfesor pantallaProfesor = new PantallaProfesor();
+            pantallaProfesor.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_cancelarButtonActionPerformed
 
     /**
      * @param args the command line arguments

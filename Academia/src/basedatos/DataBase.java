@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.1.6
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package basedatos;
 
 import java.sql.Connection;
@@ -42,8 +47,8 @@ public class DataBase {
                 if(!connection.isClosed()){
                     connection.close();                
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException excepcion) {
+                java.util.logging.Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, excepcion);
             }
         }
     }

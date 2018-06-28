@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.4.7
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package GUI;
 
 import DAO.PlanDeCursoDAO;
@@ -19,7 +24,8 @@ import javax.swing.table.DefaultTableModel;
 public class VisualizarPlanDeCurso extends javax.swing.JFrame {
     private static Profesor profesor;
     private static int posicionCurso;
-    private static Curso curso;
+    private static int posicionExperiencia;
+    private static Curso curso = new Curso();
     private static PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
     private static PlanDeCurso planDeCurso = new PlanDeCurso();
     public static DefaultTableModel modelo;
@@ -28,6 +34,14 @@ public class VisualizarPlanDeCurso extends javax.swing.JFrame {
         return posicionCurso;
     }
 
+    public static int getPosicionExperiencia() {
+        return posicionExperiencia;
+    }
+
+    public static void setPosicionExperiencia(int posicionExperiencia) {
+        VisualizarPlanDeCurso.posicionExperiencia = posicionExperiencia;
+    }
+    
     public static void setPosicionCurso(int posicionCurso) {
         VisualizarPlanDeCurso.posicionCurso = posicionCurso;
     }
@@ -47,15 +61,10 @@ public class VisualizarPlanDeCurso extends javax.swing.JFrame {
         
         curso = profesor.getCursos().get(posicionCurso);
         planDeCurso = planDeCursoDAO.obtenerPlanDeCursoPorCurso(curso);
-        if(planDeCurso.getEstado().equals("Incompleto")){
-            JOptionPane.showMessageDialog(this, "No hay un plan de curso que mostrar.");
-            dispose();
-        }else{
-            mostrarDatosPrincipales();
-            cargarTablaPlaneacion();
-            cargarTablaBibliografia();
-            cargarTablaEvaluaciones();
-        }
+        mostrarDatosPrincipales();
+        cargarTablaPlaneacion();
+        cargarTablaBibliografia();
+        cargarTablaEvaluaciones();
     }
     public void mostrarDatosPrincipales(){
         claveNrcOut.setText(Integer.toString(curso.getNrc()));
@@ -366,17 +375,8 @@ public class VisualizarPlanDeCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
-        if(profesor.getCursos().get(posicionCurso).getExperienciaEducativa().getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal().equals(profesor.getNumeroDePersonal())){
-            PantallaCoordinador.setCoordinador(profesor);
-            PantallaCoordinador.setPosicionCurso(posicionCurso);
-            PantallaCoordinador pantallaCoordinador = new PantallaCoordinador();
-            pantallaCoordinador.setVisible(true);
-            dispose();
-        } else {
-            PantallaProfesor.setProfesor(profesor);
-            PantallaProfesor.setPosicionCurso(posicionCurso);
-            PantallaProfesor pantallaProfesor = new PantallaProfesor();
-            pantallaProfesor.setVisible(true);
+        int opcion = JOptionPane.showConfirmDialog(null, "Seguro que no deseas salir?", "Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+        if (opcion == 0) {
             dispose();
         }
     }//GEN-LAST:event_salirButtonActionPerformed

@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+ *  Derechos de autor: UV-software(c)
+ *  @auto: Juan Carlos Domínguez Dominguez
+ *  @nombre: Control de academias
+ *  @versión 0.2.7
+ *  Este producto no puede ser intercambiado bajo ninguna circunstancia
+	
  */
+
 package DAO;
 
 import basedatos.DataBase;
@@ -29,12 +34,15 @@ public class PeriodoDAO implements IPeriodoDAO{
             PreparedStatement statement = conexion.prepareStatement(OBTENER_PERIODO);
             statement.setString(1, nombrePeriodo);
             ResultSet resultado = statement.executeQuery();
+            //SE OBTIENE EL PERIODO
             while(resultado.next()){
                 periodo.setNombrePeriodo(nombrePeriodo);
                 periodo.setFechaFin(resultado.getDate("fechaFin"));
                 periodo.setFechaInicio(resultado.getDate("fechaComienzo"));
             }
         }catch(SQLException excepcion){
+            java.util.logging.Logger.getLogger(PeriodoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
             java.util.logging.Logger.getLogger(PeriodoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
         }finally{
             try {
