@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  *
@@ -26,7 +27,7 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
     
     private static final String INSERTAR_PLAN = "INSERT INTO plancurso(objetivoGeneral, nrc, estado) VALUES (?,?,?)";
     private static final String INSERTAR_UNIDAD = "INSERT INTO unidades(noUnidad, nombre, fechas, tareasYPracticas, tecnicaDidactica, idPlan) VALUES (?,?,?,?,?,?)";
-    private static final String INSERTAR_TEMA = "INSER INTO tema(nombreTema, idUnidad) VALUES (?,?)";
+    private static final String INSERTAR_TEMA = "INSERT INTO tema(nombreTema, idUnidad) VALUES (?,?)";
     private static final String INSERTAR_BIBLIOGRAFIA = "INSERT INTO bibliografia(autor, titulo, editorial, año, idPlan) VALUES (?,?,?,?,?)";
     private static final String OBTENER_ID_PLAN = "SELECT LAST_INSERT_ID(idPlan) FROM planCurso";
     private static final String OBTENER_ID_UNIDAD = "SELECT LAST_INSERT_ID(idUnidad) FROM unidades";
@@ -69,6 +70,7 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
                     statement = conexion.prepareStatement(INSERTAR_TEMA);
                     statement.setString(1, planDeCurso.getUnidades().get(i).getTemas().get(j).getNombre());
                     statement.setInt(2, idUnidad);
+                    statement.execute();
                 }
             }
             //AGREGAR BIBLIOGRAFIA
@@ -88,7 +90,13 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             }
             agregar = true;
         }catch(SQLException excepcion){
-            excepcion.printStackTrace();
+            java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return agregar;
     }
@@ -154,12 +162,18 @@ public class PlanDeCursoDAO implements IPlanDeCursoDAO{
             }
             //OBTENER CRITERIOS DE EVALUACION
             CriterioDeEvaluacionDAO criterioDeEvaluacionDAO = new CriterioDeEvaluacionDAO();
-            
             planDeCurso.setCriteriosDeEvaluacion(criterioDeEvaluacionDAO.obtenerCriteriosDeEvaluacionPorExperienciaEducativa(curso.getExperienciaEducativa().getCodigo()));
+            
             planDeCurso.setBibliografias(bibliografias);
             planDeCurso.setUnidades(unidades);
         }catch(SQLException excepcion){
-            
+            java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(PlanDeCursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return planDeCurso;
     }

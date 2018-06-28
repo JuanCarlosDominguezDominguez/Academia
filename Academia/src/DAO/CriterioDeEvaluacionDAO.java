@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  *
@@ -38,7 +39,13 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
             statement.execute();
             agregar = true;
         }catch(SQLException excepcion){
-            excepcion.printStackTrace();
+            java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return agregar;
     }
@@ -62,7 +69,13 @@ public class CriterioDeEvaluacionDAO implements ICriterioDeEvaluacionDAO{
                 criteriosDeEvaluacion.add(criterioDeEvaluacion);
             }
         }catch(SQLException excepcion){
-            excepcion.printStackTrace();
+            java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(CriterioDeEvaluacionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return criteriosDeEvaluacion;
     }

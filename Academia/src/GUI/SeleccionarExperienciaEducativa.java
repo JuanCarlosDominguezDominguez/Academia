@@ -9,6 +9,7 @@ import DAO.AcademiaDAO;
 import DAO.CursoDAO;
 import DAO.ProfesorDAO;
 import clases.Profesor;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -141,23 +142,28 @@ public class SeleccionarExperienciaEducativa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        String experienciaEducativaSelecionada = experienciaEducativaIn.getSelectedItem().toString();
-        Profesor profesor = new Profesor();
-        profesor = obtenerProfesor(numeroDePersonal);
-        for(int i = 0; i < profesor.getCursos().size(); i++){
-            if(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE().equals(experienciaEducativaSelecionada)){
-                if(profesor.getCursos().get(i).getExperienciaEducativa().getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal().equals(profesor.getNumeroDePersonal())){
-                    PantallaCoordinador.setCoordinador(profesor);
-                    PantallaCoordinador.setPosicionCurso(i);
-                    PantallaCoordinador pantallaCoordinador = new PantallaCoordinador();
-                    pantallaCoordinador.setVisible(true);
-                    dispose();
-                }else{
-                    PantallaProfesor.setProfesor(profesor);
-                    PantallaProfesor.setPosicionCurso(i);
-                    PantallaProfesor pantallaProfesor= new PantallaProfesor();
-                    pantallaProfesor.setVisible(true);
-                    dispose();
+        String experienciaEducativaSelecionada;
+        if (experienciaEducativaIn.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this, "No hay experiencias educativas asignadas.");
+        }else{
+            experienciaEducativaSelecionada = experienciaEducativaIn.getSelectedItem().toString();
+            Profesor profesor = new Profesor();
+            profesor = obtenerProfesor(numeroDePersonal);
+            for(int i = 0; i < profesor.getCursos().size(); i++){
+                if(profesor.getCursos().get(i).getExperienciaEducativa().getNombreEE().equals(experienciaEducativaSelecionada)){
+                    if(profesor.getCursos().get(i).getExperienciaEducativa().getAcademia().getCoordinadorDeAcademia().getNumeroDePersonal().equals(profesor.getNumeroDePersonal())){
+                        PantallaCoordinador.setCoordinador(profesor);
+                        PantallaCoordinador.setPosicionCurso(i);
+                        PantallaCoordinador pantallaCoordinador = new PantallaCoordinador();
+                        pantallaCoordinador.setVisible(true);
+                        dispose();
+                    }else{
+                        PantallaProfesor.setProfesor(profesor);
+                        PantallaProfesor.setPosicionCurso(i);
+                        PantallaProfesor pantallaProfesor= new PantallaProfesor();
+                        pantallaProfesor.setVisible(true);
+                        dispose();
+                    }
                 }
             }
         }

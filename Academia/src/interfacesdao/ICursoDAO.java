@@ -14,6 +14,4 @@ import java.util.List;
  */
 public interface ICursoDAO {
     List<Curso> obtenerCursosPorProfesor(String numeroDePersonal);
-    Curso obtenerCursoDeExperienciaEducativa(String codigoEE);
-    Curso obtenerCursoPorNrc(int nrc);
 }

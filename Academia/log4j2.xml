@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="logFile" fileName="logs/app.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </File>
+    <SMTP name="Mail" bufferSize="10240" smtpPassword="wzfzp0hr" smtpUsername="juuancd@gmail.com" smtpPort="465" smtpHost="smtp.gmail.com" smtpProtocol="smtps" from="juuancd@gmail.com" to="juuancd@hotmail.com" subject="Prueba logger Juan">
+    </SMTP>
+  </Appenders>
+  <Loggers>
+
+    <Root level="all">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="logFile"/>
+      <AppenderRef ref="Mail"/>
+     </Root> 
+  </Loggers>
+
+</Configuration>

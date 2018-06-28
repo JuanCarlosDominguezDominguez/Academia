@@ -41,14 +41,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
+                  <Component id="salirButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
-                      <Component id="objetivoGeneralIn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Component id="objetivoGeneralIn" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="calendarioEvaluacionText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="bibliografiaText" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -56,30 +58,41 @@
                               <Component id="objetivoGeneralText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="academicoText" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="academicoOut" min="-2" pref="269" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="periodoText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="periodoOut" min="-2" pref="158" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="claveNrcText" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                  <Component id="claveNrcOut" min="-2" pref="57" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="experienciaEducativaText" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="experienciaEducativaOut" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="programaEducativoText" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="programaEducativoOut" min="-2" pref="186" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="bloqueText" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="bloqueOut" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="seccionText" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <Component id="seccionOut" pref="46" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
-                  <Component id="salirButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -87,17 +100,33 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="claveNrcText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="experienciaEducativaText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="programaEducativoText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="bloqueText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="seccionText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="experienciaEducativaOut" max="32767" attributes="0"/>
+                      <Component id="programaEducativoOut" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="claveNrcText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="experienciaEducativaText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="programaEducativoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bloqueText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="seccionText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="claveNrcOut" min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="bloqueOut" min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="seccionOut" min="-2" pref="15" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="academicoText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="periodoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="academicoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="academicoOut" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="periodoOut" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="objetivoGeneralText" min="-2" max="-2" attributes="0"/>
@@ -164,6 +193,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="objetivoGeneralIn">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="objetivoGeneralInActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="planeacionText">
           <Properties>
@@ -179,19 +214,23 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="planeacionTable">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="Unidad" type="java.lang.Object"/>
-                    <Column editable="true" title="Temas" type="java.lang.Object"/>
-                    <Column editable="true" title="Fechas" type="java.lang.Object"/>
-                    <Column editable="true" title="Tareas y pr&#xe1;cticas" type="java.lang.Object"/>
-                    <Column editable="true" title="T&#xe9;cnica didactica" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="0">
+                    <Column editable="false" title="Unidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Temas" type="java.lang.Object"/>
+                    <Column editable="false" title="Fechas" type="java.lang.Object"/>
+                    <Column editable="false" title="Tareas y pr&#xe1;cticas" type="java.lang.Object"/>
+                    <Column editable="false" title="T&#xe9;cnica didactica" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -210,17 +249,20 @@
             <Component class="javax.swing.JTable" name="bibliografiaTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Autor(es)" type="java.lang.Object"/>
-                    <Column editable="true" title="T&#xed;tulo de libro" type="java.lang.Object"/>
-                    <Column editable="true" title="Editorial" type="java.lang.Object"/>
-                    <Column editable="true" title="A&#xf1;o" type="java.lang.Object"/>
+                  <Table columnCount="4" rowCount="0">
+                    <Column editable="false" title="Autor(es)" type="java.lang.Object"/>
+                    <Column editable="false" title="T&#xed;tulo de libro" type="java.lang.Object"/>
+                    <Column editable="false" title="Editorial" type="java.lang.Object"/>
+                    <Column editable="false" title="A&#xf1;o" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -239,18 +281,21 @@
             <Component class="javax.swing.JTable" name="calendarioEvaluacionTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="Unidad" type="java.lang.Object"/>
-                    <Column editable="true" title="Fechas" type="java.lang.Object"/>
-                    <Column editable="true" title="Criterio de evaluaci&#xf3;n: " type="java.lang.Object"/>
-                    <Column editable="true" title="Instrumento" type="java.lang.Object"/>
-                    <Column editable="true" title="Porcentaje" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="0">
+                    <Column editable="false" title="Unidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Fechas" type="java.lang.Object"/>
+                    <Column editable="false" title="Criterio de evaluaci&#xf3;n: " type="java.lang.Object"/>
+                    <Column editable="false" title="Instrumento" type="java.lang.Object"/>
+                    <Column editable="false" title="Porcentaje" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -261,6 +306,69 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="claveNrcOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="experienciaEducativaOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="programaEducativoOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="bloqueOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="seccionOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="academicoOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="periodoOut">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

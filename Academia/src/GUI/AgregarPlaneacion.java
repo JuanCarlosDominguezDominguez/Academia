@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,13 +22,40 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AgregarPlaneacion extends javax.swing.JFrame {
     public static ArrayList<Tema> temas = new ArrayList<Tema>();
+    public static DefaultTableModel modelo;
 
+    public static DefaultTableModel getModelo() {
+        return modelo;
+    }
+
+    public static void setModelo(DefaultTableModel modelo) {
+        AgregarPlaneacion.modelo = modelo;
+    }
+
+    public static JButton getEliminarButton() {
+        return eliminarButton;
+    }
+
+    public static void setEliminarButton(JButton eliminarButton) {
+        AgregarPlaneacion.eliminarButton = eliminarButton;
+    }
+
+    public static JTable getTemasTable() {
+        return temasTable;
+    }
+
+    public static void setTemasTable(JTable temasTable) {
+        AgregarPlaneacion.temasTable = temasTable;
+    }
+    
+    
     public static ArrayList<Tema> getTemas() {
         return temas;
     }
 
     public static void setTemas(ArrayList<Tema> temas) {
         AgregarPlaneacion.temas = temas;
+        modelo = (DefaultTableModel) AgregarPlaneacion.temasTable.getModel();
     }
     
     /**
@@ -35,7 +63,7 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
      */
     public AgregarPlaneacion() {
         initComponents();
-        cargarTablaPlaneacion();
+        eliminarButton.setEnabled(false);
     }
     
     public boolean validarCampos(){
@@ -57,17 +85,10 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
         return true;
     }
     
-    public void cargarTablaPlaneacion(){
-        String encabezado[] = {"Nombre"};
-        DefaultTableModel modelo = new DefaultTableModel(null, encabezado);
-        temasTable = new JTable(modelo);
-        String datos[] = new String[1];
-        System.out.println(temas.size());
-        for(int i = 0; i < temas.size(); i++){
-            datos[0] = "Hola";
-            modelo.addRow(datos);
+    public static void cargarTablaTemas(){
+        for(int i = 0; i<temas.size(); i++){
+            temasTable.setValueAt(temas.get(i).getNombre(), i, 0);
         }
-        temasTable.setModel(modelo);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,8 +116,8 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
         cancelarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         temasTable = new javax.swing.JTable();
-        agregarTemaButton = new javax.swing.JButton();
-        actualizarButton = new javax.swing.JButton();
+        agregarButton = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,12 +189,10 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
             }
         });
 
+        temasTable.setAutoCreateRowSorter(true);
         temasTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nombre"
@@ -182,24 +201,31 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(temasTable);
 
-        agregarTemaButton.setText("+");
-        agregarTemaButton.addActionListener(new java.awt.event.ActionListener() {
+        agregarButton.setText("Agregar Tema");
+        agregarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarTemaButtonActionPerformed(evt);
+                agregarButtonActionPerformed(evt);
             }
         });
 
-        actualizarButton.setText("Actualizar");
-        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
+        eliminarButton.setText("Eliminar Tema");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actualizarButtonActionPerformed(evt);
+                eliminarButtonActionPerformed(evt);
             }
         });
 
@@ -241,11 +267,10 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
                                 .addComponent(nombreUnidadIn))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addComponent(temasText)
-                                .addGap(16, 16, 16)
-                                .addComponent(agregarTemaButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(actualizarButton)
-                                .addGap(47, 47, 47))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(agregarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(eliminarButton))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addComponent(numeroUnidadText)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -271,8 +296,8 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temasText)
-                    .addComponent(agregarTemaButton)
-                    .addComponent(actualizarButton))
+                    .addComponent(agregarButton)
+                    .addComponent(eliminarButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -327,14 +352,14 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
             unidad.setTareasYPracticas(tareasYPracticasIn.getText());
             unidad.setTecnicaDidactica(tecnicaDidacticaIn.getText());
             ElaborarPlanDeCurso.unidades.add(unidad);
+            ElaborarPlanDeCurso.modelo = (DefaultTableModel) ElaborarPlanDeCurso.planeacionTable.getModel();
+            Object nuevo[]= {""};
+            ElaborarPlanDeCurso.modelo.addRow(nuevo);
+            ElaborarPlanDeCurso.cargarTablaUnidades();
+            ElaborarPlanDeCurso.getEliminarPlaneacionButton().setEnabled(true);
             dispose();
         }
     }//GEN-LAST:event_aceptarButtonActionPerformed
-
-    private void agregarTemaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarTemaButtonActionPerformed
-        AgregarTema agregarTema = new AgregarTema();
-        agregarTema.setVisible(true);
-    }//GEN-LAST:event_agregarTemaButtonActionPerformed
 
     private void tareasYPracticasInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tareasYPracticasInActionPerformed
         // TODO add your handling code here:
@@ -378,9 +403,21 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
-    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
-        cargarTablaPlaneacion();
-    }//GEN-LAST:event_actualizarButtonActionPerformed
+    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
+        AgregarTema agregarTema = new AgregarTema();
+        agregarTema.setVisible(true);
+    }//GEN-LAST:event_agregarButtonActionPerformed
+
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+        if (modelo.getRowCount()-1 >= 0){
+            eliminarButton.setEnabled(true);
+            modelo.removeRow(modelo.getRowCount()-1);
+            temas.remove(temas.get(temas.size()-1));
+        }
+        if (modelo.getRowCount()-1 <= 0){
+            eliminarButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_eliminarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,9 +456,9 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
-    private javax.swing.JButton actualizarButton;
-    private javax.swing.JButton agregarTemaButton;
+    private javax.swing.JButton agregarButton;
     private javax.swing.JButton cancelarButton;
+    private static javax.swing.JButton eliminarButton;
     private javax.swing.JTextField fechaIn;
     private javax.swing.JLabel fechasText;
     private javax.swing.JScrollPane jScrollPane1;
@@ -435,7 +472,7 @@ public class AgregarPlaneacion extends javax.swing.JFrame {
     private javax.swing.JLabel tareasYPracticasText;
     private javax.swing.JTextField tecnicaDidacticaIn;
     private javax.swing.JLabel tecnicaDidacticaText;
-    private javax.swing.JTable temasTable;
+    public static javax.swing.JTable temasTable;
     private javax.swing.JLabel temasText;
     // End of variables declaration//GEN-END:variables
 }

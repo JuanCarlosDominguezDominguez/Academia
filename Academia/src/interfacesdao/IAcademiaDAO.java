@@ -15,5 +15,4 @@ import java.util.List;
 public interface IAcademiaDAO {
     List<Academia> obtenerTodasLasAcademiasPorProfesor(String numeroDePersonal);
     Academia obtenerAcademiaPorExperienciaEducativa(String codigoEE);
-    Academia obtenerAcademiaPorNombre(String nombreAcademia);
 }

@@ -5,8 +5,10 @@
  */
 package GUI;
 
+import static GUI.AgregarPlaneacion.modelo;
 import clases.Tema;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -129,6 +131,11 @@ public class AgregarTema extends javax.swing.JFrame {
             Tema tema = new Tema();
             tema.setNombre(nombreTemaIn.getText());
             AgregarPlaneacion.temas.add(tema);
+            AgregarPlaneacion.modelo = (DefaultTableModel) AgregarPlaneacion.temasTable.getModel();
+            Object nuevo[]= {""};
+            AgregarPlaneacion.modelo.addRow(nuevo);
+            AgregarPlaneacion.cargarTablaTemas();
+            AgregarPlaneacion.getEliminarButton().setEnabled(true);
             dispose();
         }
     }//GEN-LAST:event_aceptarButtonActionPerformed

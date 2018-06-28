@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,8 +55,18 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
                 experienciaEducativa.setAcademia(academiaDAO.obtenerAcademiaPorExperienciaEducativa(experienciaEducativa.getCodigo()));
             }
         }catch(SQLException excepcion){
-            
+            Logger.getLogger(ExperienciaEducativaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }catch(NullPointerException excepcion){
+            java.util.logging.Logger.getLogger(ExperienciaEducativaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException excepcion) {
+                System.out.println("hola");
+                java.util.logging.Logger.getLogger(ExperienciaEducativaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+            }
         }
+        
         return experienciaEducativa;
     }
     

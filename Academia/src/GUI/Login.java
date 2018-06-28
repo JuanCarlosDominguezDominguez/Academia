@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,9 +42,14 @@ public class Login extends javax.swing.JFrame {
                     encontrado = true;
                 }
             }
-            return encontrado;
         }catch(SQLException excepcion){
-            
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return encontrado;
     }

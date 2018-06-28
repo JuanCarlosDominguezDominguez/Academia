@@ -6,13 +6,14 @@
 package GUI;
 
 import clases.Profesor;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Juuan
  */
 public class PantallaProfesor extends javax.swing.JFrame {
-    public static Profesor profesor;
+    private static Profesor profesor;
     private static int posicionCurso;
 
     public static int getPosicionCurso() {

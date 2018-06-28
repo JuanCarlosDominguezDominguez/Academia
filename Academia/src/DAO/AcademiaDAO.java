@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +48,13 @@ public class AcademiaDAO implements IAcademiaDAO{
                 academias.add(academia);
             }
         }catch(SQLException excepcion){
-            
+            java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return academias;
     }
@@ -73,14 +81,14 @@ public class AcademiaDAO implements IAcademiaDAO{
                 }
             }
         }catch(SQLException excepcion){
-            
+            java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(AcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return academia;
     }
-
-    @Override
-    public Academia obtenerAcademiaPorNombre(String nombreAcademia) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

@@ -21,12 +21,12 @@ public class DataBase {
     private static void makeConnection(){
         String url= "jdbc:mysql://localhost/";
         String databaseName = "academia";
-        String userName = "root";
+        String userName = "juan";
         String password = "12345";
         try {
             connection = (Connection)DriverManager.getConnection(url+databaseName,userName,password);
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException excepcion) {
+            java.util.logging.Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, excepcion);
         } 
     }
     

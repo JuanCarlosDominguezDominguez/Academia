@@ -9,6 +9,7 @@ import clases.CriterioDeEvaluacion;
 import clases.PlanDeCurso;
 import clases.Profesor;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Profesor profesor = new Profesor();
+        /*Profesor profesor = new Profesor();
         ProfesorDAO profesorDAO = new ProfesorDAO();
         AcademiaDAO academiaDAO = new AcademiaDAO();
         CursoDAO cursoDAO = new CursoDAO();
@@ -33,5 +34,6 @@ public class Prueba {
         PlanDeCurso plan = new PlanDeCurso();
         PlanDeCursoDAO dao = new PlanDeCursoDAO();
         plan = dao.obtenerPlanDeCursoPorCurso(profesor.getCursos().get(0));
+        System.out.println(plan.getCriteriosDeEvaluacion().size());*/
     }
 }

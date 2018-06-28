@@ -7,6 +7,7 @@ package GUI;
 
 import clases.Bibliografia;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -193,6 +194,11 @@ public class AgregarBibliografia extends javax.swing.JFrame {
             bibliografia.setEditorial(editorialIn.getText());
             bibliografia.setAnio(Integer.parseInt(anioIn.getText()));
             ElaborarPlanDeCurso.bibliografias.add(bibliografia);
+            ElaborarPlanDeCurso.modelo = (DefaultTableModel) ElaborarPlanDeCurso.bibliografiaTable.getModel();
+            Object nuevo[]= {""};
+            ElaborarPlanDeCurso.modelo.addRow(nuevo);
+            ElaborarPlanDeCurso.cargarTablaBibliografias();
+            ElaborarPlanDeCurso.getEliminarBibliografiaButton().setEnabled(true);
             dispose();
         }
     }//GEN-LAST:event_aceptarButtonActionPerformed

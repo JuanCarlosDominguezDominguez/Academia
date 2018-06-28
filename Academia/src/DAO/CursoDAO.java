@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  *
@@ -50,19 +51,15 @@ public class CursoDAO implements ICursoDAO{
                 cursos.add(curso);
             }
         }catch(SQLException excepcion){
-            
+            java.util.logging.Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, excepcion);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return cursos;
-    }
-
-    @Override
-    public Curso obtenerCursoDeExperienciaEducativa(String codigoEE) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Curso obtenerCursoPorNrc(int nrc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -10,7 +10,9 @@ import clases.CriterioDeEvaluacion;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,7 +39,7 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
         try{
             estructura.parse(fecha);
         }catch(ParseException excepcion){
-            
+            java.util.logging.Logger.getLogger(AgregarCriterioDeEvaluacion.class.getName()).log(Level.SEVERE, null, excepcion);
             return false;
         }
         return true;
@@ -230,7 +232,7 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_porcentajeInActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
@@ -244,6 +246,11 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
             criterioDeEvaluacion.setInstrumento(instrumentosIn.getText());
             criterioDeEvaluacion.setPorcentaje(porcentajeIn.getText());
             ElaborarPlanDeCurso.criteriosDeEvaluacion.add(criterioDeEvaluacion);
+            ElaborarPlanDeCurso.modelo = (DefaultTableModel) ElaborarPlanDeCurso.calendarioEvaluacionTable.getModel();
+            Object nuevo[]= {""};
+            ElaborarPlanDeCurso.modelo.addRow(nuevo);
+            ElaborarPlanDeCurso.cargarTablaEvaluaciones();
+            ElaborarPlanDeCurso.getEliminarEvaluacionButton().setEnabled(true);
             dispose();
        }
     }//GEN-LAST:event_aceptarButtonActionPerformed
@@ -277,7 +284,12 @@ public class AgregarCriterioDeEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_instrumentosInKeyTyped
 
     private void porcentajeInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeInKeyTyped
-        if(porcentajeIn.getText().length() >= 50){
+        char caracteres= evt.getKeyChar();
+        if ((caracteres<'0'||caracteres>'9') && caracteres != '-') evt.consume();
+        if(fechaIn.getText().length() >= 10){
+            evt.consume();
+        }
+        if(porcentajeIn.getText().length() >= 2){
             evt.consume();
         }
     }//GEN-LAST:event_porcentajeInKeyTyped

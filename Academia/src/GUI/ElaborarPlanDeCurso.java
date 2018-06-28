@@ -12,6 +12,8 @@ import clases.PlanDeCurso;
 import clases.Profesor;
 import clases.Unidad;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,11 +27,37 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     public static ArrayList<Unidad> unidades = new ArrayList<Unidad>();
     public static ArrayList<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     public static ArrayList<CriterioDeEvaluacion> criteriosDeEvaluacion = new ArrayList<CriterioDeEvaluacion>();
+    public static DefaultTableModel modelo;
 
     public static ArrayList<Unidad> getUnidades() {
         return unidades;
     }
 
+    public static JButton getEliminarBibliografiaButton() {
+        return eliminarBibliografiaButton;
+    }
+
+    public static void setEliminarBibliografiaButton(JButton eliminarBibliografiaButton) {
+        ElaborarPlanDeCurso.eliminarBibliografiaButton = eliminarBibliografiaButton;
+    }
+
+    public static JButton getEliminarEvaluacionButton() {
+        return eliminarEvaluacionButton;
+    }
+
+    public static void setEliminarEvaluacionButton(JButton eliminarEvaluacionButton) {
+        ElaborarPlanDeCurso.eliminarEvaluacionButton = eliminarEvaluacionButton;
+    }
+
+    public static JButton getEliminarPlaneacionButton() {
+        return eliminarPlaneacionButton;
+    }
+
+    public static void setEliminarPlaneacionButton(JButton eliminarPlaneacionButton) {
+        ElaborarPlanDeCurso.eliminarPlaneacionButton = eliminarPlaneacionButton;
+    }
+
+    
     public static void setUnidades(ArrayList<Unidad> unidades) {
         ElaborarPlanDeCurso.unidades = unidades;
     }
@@ -72,7 +100,9 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     public ElaborarPlanDeCurso() {
         initComponents();
         mostrarDatosPrincipales();
-        
+        eliminarBibliografiaButton.setEnabled(false);
+        eliminarPlaneacionButton.setEnabled(false);
+        eliminarEvaluacionButton.setEnabled(false);
     }
     
     public void mostrarDatosPrincipales(){
@@ -84,23 +114,43 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         academicoOut.setText(profesor.getNombre());
         periodoOut.setText(profesor.getCursos().get(posicionCurso).getPeriodo().getNombrePeriodo());
     }
-    public void cargarTablaPlaneacion(){
-        String encabezado[] = {"Unidad","Temas","Fechas", "Tareas y prácticas", "Técnica didactica"};
-        DefaultTableModel modelo = new DefaultTableModel(null, encabezado);
-        planeacionTable = new JTable(modelo);
-        String datos[] = null;
-        for(int i = 0; i < unidades.size(); i++){
-            datos[0] = unidades.get(i).getNumeroUnidad();
-            for(int j = 0; j < unidades.get(i).getTemas().size(); j++){
-                datos[1] = unidades.get(i).getTemas().get(j).getNombre();
-            }
-            datos[2] = String.valueOf(unidades.get(i).getFecha());
-            datos[3] = unidades.get(i).getTareasYPracticas();
-            datos[4] = unidades.get(i).getTecnicaDidactica();
+    
+    public boolean validarCampos(){
+        if(objetivoGeneralIn.getText() == "" || unidades.size() == 0 || bibliografias.size() == 0 || criteriosDeEvaluacion.size() == 0){
+            return false;
         }
-        modelo.addRow(datos);
-        planeacionTable.setModel(modelo);
-        planeacionTable.repaint();
+        return true;
+    }
+    
+    public static void cargarTablaUnidades(){
+        for(int i = 0; i<unidades.size(); i++){
+            planeacionTable.setValueAt(unidades.get(i).getNombre(), i, 0);
+            for(int j = 0; j<unidades.get(i).getTemas().size();j++){
+                planeacionTable.setValueAt(unidades.get(i).getTemas().get(j).getNombre(), i, 1);
+            }
+            planeacionTable.setValueAt(unidades.get(i).getFecha(), i, 2);
+            planeacionTable.setValueAt(unidades.get(i).getTareasYPracticas(), i, 3);
+            planeacionTable.setValueAt(unidades.get(i).getTecnicaDidactica(), i, 4);
+        }
+    }
+    
+    public static void cargarTablaBibliografias(){
+        for(int i = 0; i < bibliografias.size(); i++){
+            bibliografiaTable.setValueAt(bibliografias.get(i).getAutor(), i, 0);
+            bibliografiaTable.setValueAt(bibliografias.get(i).getTituloLibro(), i, 1);
+            bibliografiaTable.setValueAt(bibliografias.get(i).getEditorial(), i, 2);
+            bibliografiaTable.setValueAt(bibliografias.get(i).getAnio(), i, 3);
+        }
+    }
+    
+    public static void cargarTablaEvaluaciones(){
+        for(int i = 0; i < criteriosDeEvaluacion.size(); i++){
+            calendarioEvaluacionTable.setValueAt(criteriosDeEvaluacion.get(i).getUnidadesEvaluadas(), i, 0);
+            calendarioEvaluacionTable.setValueAt(criteriosDeEvaluacion.get(i).getFecha(), i, 1);
+            calendarioEvaluacionTable.setValueAt(criteriosDeEvaluacion.get(i).getCriterioEvaluacion(), i, 2);
+            calendarioEvaluacionTable.setValueAt(criteriosDeEvaluacion.get(i).getInstrumento(), i, 3);
+            calendarioEvaluacionTable.setValueAt(criteriosDeEvaluacion.get(i).getPorcentaje(), i, 4);
+        }
     }
 
     /**
@@ -130,7 +180,7 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         bibliografiaTable = new javax.swing.JTable();
         calendarioEvaluacionText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        calendariaEvaluacionTable = new javax.swing.JTable();
+        calendarioEvaluacionTable = new javax.swing.JTable();
         guardarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
         guardarComoBorradorButton = new javax.swing.JButton();
@@ -141,9 +191,12 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
         seccionOut = new javax.swing.JLabel();
         academicoOut = new javax.swing.JLabel();
         periodoOut = new javax.swing.JLabel();
-        agregarBibliografiaButton = new javax.swing.JButton();
         agregarPlaneacionButton = new javax.swing.JButton();
-        agregarCriterioDeEvaluacionButton = new javax.swing.JButton();
+        eliminarPlaneacionButton = new javax.swing.JButton();
+        agregarBibliografiaButton = new javax.swing.JButton();
+        eliminarBibliografiaButton = new javax.swing.JButton();
+        agregarEvaluacionButton = new javax.swing.JButton();
+        eliminarEvaluacionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,6 +216,11 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
 
         objetivoGeneralText.setText("OBJETIVO GENERAL: ");
 
+        objetivoGeneralIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                objetivoGeneralInActionPerformed(evt);
+            }
+        });
         objetivoGeneralIn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 objetivoGeneralInKeyTyped(evt);
@@ -173,46 +231,61 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
 
         planeacionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Unidad", "Temas", "Fechas", "Tareas y prácticas", "Técnica didactica"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(planeacionTable);
 
         bibliograficaText.setText("BIBLIOGRAFÍA: ");
 
         bibliografiaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Autor(es)", "Título de libro", "Editorial", "Año"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(bibliografiaTable);
 
         calendarioEvaluacionText.setText("CALENDARIO DE EVALUACIÓN: ");
 
-        calendariaEvaluacionTable.setModel(new javax.swing.table.DefaultTableModel(
+        calendarioEvaluacionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Unidad", "Fechas", "Criterio de evaluación: ", "Instrumento", "Porcentaje"
             }
-        ));
-        jScrollPane3.setViewportView(calendariaEvaluacionTable);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(calendarioEvaluacionTable);
 
         guardarButton.setText("Guardar");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -239,24 +312,45 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
 
         periodoOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        agregarBibliografiaButton.setText("+");
-        agregarBibliografiaButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarBibliografiaButtonActionPerformed(evt);
-            }
-        });
-
-        agregarPlaneacionButton.setText("+");
+        agregarPlaneacionButton.setText("Agregar");
         agregarPlaneacionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarPlaneacionButtonActionPerformed(evt);
             }
         });
 
-        agregarCriterioDeEvaluacionButton.setText("+");
-        agregarCriterioDeEvaluacionButton.addActionListener(new java.awt.event.ActionListener() {
+        eliminarPlaneacionButton.setText("Eliminar");
+        eliminarPlaneacionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarCriterioDeEvaluacionButtonActionPerformed(evt);
+                eliminarPlaneacionButtonActionPerformed(evt);
+            }
+        });
+
+        agregarBibliografiaButton.setText("Agregar");
+        agregarBibliografiaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBibliografiaButtonActionPerformed(evt);
+            }
+        });
+
+        eliminarBibliografiaButton.setText("Eliminar");
+        eliminarBibliografiaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarBibliografiaButtonActionPerformed(evt);
+            }
+        });
+
+        agregarEvaluacionButton.setText("Agregar");
+        agregarEvaluacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarEvaluacionButtonActionPerformed(evt);
+            }
+        });
+
+        eliminarEvaluacionButton.setText("Eliminar");
+        eliminarEvaluacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarEvaluacionButtonActionPerformed(evt);
             }
         });
 
@@ -295,16 +389,22 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addComponent(calendarioEvaluacionText)
-                                .addGap(2, 2, 2)
-                                .addComponent(agregarCriterioDeEvaluacionButton))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(agregarEvaluacionButton)
+                                .addGap(40, 40, 40)
+                                .addComponent(eliminarEvaluacionButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addComponent(bibliograficaText)
-                                .addGap(4, 4, 4)
-                                .addComponent(agregarBibliografiaButton))
+                                .addGap(2, 2, 2)
+                                .addComponent(agregarBibliografiaButton)
+                                .addGap(33, 33, 33)
+                                .addComponent(eliminarBibliografiaButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addComponent(planeacionText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(agregarPlaneacionButton))
+                                .addGap(4, 4, 4)
+                                .addComponent(agregarPlaneacionButton)
+                                .addGap(31, 31, 31)
+                                .addComponent(eliminarPlaneacionButton))
                             .addComponent(objetivoGeneralText, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addComponent(academicoText)
@@ -352,24 +452,25 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
                 .addComponent(objetivoGeneralText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(objetivoGeneralIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(planeacionText)
-                    .addComponent(agregarPlaneacionButton))
+                    .addComponent(agregarPlaneacionButton)
+                    .addComponent(eliminarPlaneacionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bibliograficaText))
-                            .addComponent(agregarBibliografiaButton, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(calendarioEvaluacionText))
-                    .addComponent(agregarCriterioDeEvaluacionButton))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bibliograficaText)
+                    .addComponent(agregarBibliografiaButton)
+                    .addComponent(eliminarBibliografiaButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(calendarioEvaluacionText)
+                    .addComponent(agregarEvaluacionButton)
+                    .addComponent(eliminarEvaluacionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -397,40 +498,81 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        PlanDeCurso planDeCurso = new PlanDeCurso();
-        planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
-        planDeCurso.setBibliografias(bibliografias);
-        for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
-            criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+        if(!validarCampos()){
+            JOptionPane.showMessageDialog(this, "Debes llenar al menos el objetivo general y un campo de cada tabla");
+        }else{
+            PlanDeCurso planDeCurso = new PlanDeCurso();
+            planDeCurso.setObjetivoGeneral(objetivoGeneralIn.getText());
+            planDeCurso.setBibliografias(bibliografias);
+            for(int i = 0; i<criteriosDeEvaluacion.size(); i++){
+                criteriosDeEvaluacion.get(i).setExperienciaEducativa(profesor.getCursos().get(posicionCurso).getExperienciaEducativa());
+            }
+            planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
+            planDeCurso.setUnidades(unidades);
+            planDeCurso.setEstado("Completo");
+            planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
+            PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
+            planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
         }
-        planDeCurso.setCriteriosDeEvaluacion(criteriosDeEvaluacion);
-        planDeCurso.setUnidades(unidades);
-        planDeCurso.setEstado("Completo");
-        planDeCurso.setCurso(profesor.getCursos().get(posicionCurso));
-        PlanDeCursoDAO planDeCursoDAO = new PlanDeCursoDAO();
-        planDeCursoDAO.agregarPlanDeCurso(planDeCurso);
     }//GEN-LAST:event_guardarButtonActionPerformed
-
-    private void agregarPlaneacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPlaneacionButtonActionPerformed
-        AgregarPlaneacion agregarPlaneacion = new AgregarPlaneacion();
-        agregarPlaneacion.setVisible(true);
-    }//GEN-LAST:event_agregarPlaneacionButtonActionPerformed
-
-    private void agregarBibliografiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBibliografiaButtonActionPerformed
-        AgregarBibliografia agregarBibliografia = new AgregarBibliografia();
-        agregarBibliografia.setVisible(true);
-    }//GEN-LAST:event_agregarBibliografiaButtonActionPerformed
-
-    private void agregarCriterioDeEvaluacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCriterioDeEvaluacionButtonActionPerformed
-        AgregarCriterioDeEvaluacion agregarCriterioDeEvaluacion = new AgregarCriterioDeEvaluacion();
-        agregarCriterioDeEvaluacion.setVisible(true);
-    }//GEN-LAST:event_agregarCriterioDeEvaluacionButtonActionPerformed
 
     private void objetivoGeneralInKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_objetivoGeneralInKeyTyped
         if (objetivoGeneralIn.getText().length() >= 500){
             evt.consume();
         }
     }//GEN-LAST:event_objetivoGeneralInKeyTyped
+
+    private void objetivoGeneralInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetivoGeneralInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_objetivoGeneralInActionPerformed
+
+    private void agregarPlaneacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPlaneacionButtonActionPerformed
+        AgregarPlaneacion agregarPlaneacion = new AgregarPlaneacion();
+        agregarPlaneacion.setVisible(true);
+    }//GEN-LAST:event_agregarPlaneacionButtonActionPerformed
+
+    private void eliminarPlaneacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPlaneacionButtonActionPerformed
+        if (modelo.getRowCount()-1 >= 0){
+            eliminarPlaneacionButton.setEnabled(true);
+            modelo.removeRow(modelo.getRowCount()-1);
+            unidades.remove(unidades.get(unidades.size()-1));
+        }
+        if (modelo.getRowCount()-1 <= 0){
+            eliminarPlaneacionButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_eliminarPlaneacionButtonActionPerformed
+
+    private void agregarBibliografiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBibliografiaButtonActionPerformed
+        AgregarBibliografia agregarBibliografia = new AgregarBibliografia();
+        agregarBibliografia.setVisible(true);
+    }//GEN-LAST:event_agregarBibliografiaButtonActionPerformed
+
+    private void eliminarBibliografiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarBibliografiaButtonActionPerformed
+        if (modelo.getRowCount()-1 >= 0){
+            eliminarBibliografiaButton.setEnabled(true);
+            modelo.removeRow(modelo.getRowCount()-1);
+            bibliografias.remove(bibliografias.get(bibliografias.size()-1));
+        }
+        if (modelo.getRowCount()-1 <= 0){
+            eliminarBibliografiaButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_eliminarBibliografiaButtonActionPerformed
+
+    private void agregarEvaluacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEvaluacionButtonActionPerformed
+        AgregarCriterioDeEvaluacion agregarCriterioDeEvaluacion = new AgregarCriterioDeEvaluacion();
+        agregarCriterioDeEvaluacion.setVisible(true);
+    }//GEN-LAST:event_agregarEvaluacionButtonActionPerformed
+
+    private void eliminarEvaluacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarEvaluacionButtonActionPerformed
+        if (modelo.getRowCount()-1 >= 0){
+            eliminarEvaluacionButton.setEnabled(true);
+            modelo.removeRow(modelo.getRowCount()-1);
+            criteriosDeEvaluacion.remove(criteriosDeEvaluacion.get(criteriosDeEvaluacion.size()-1));
+        }
+        if (modelo.getRowCount()-1 <= 0){
+            eliminarEvaluacionButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_eliminarEvaluacionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,18 +613,21 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel academicoOut;
     private javax.swing.JLabel academicoText;
-    private javax.swing.JButton agregarBibliografiaButton;
-    private javax.swing.JButton agregarCriterioDeEvaluacionButton;
-    private javax.swing.JButton agregarPlaneacionButton;
-    private javax.swing.JTable bibliografiaTable;
+    private static javax.swing.JButton agregarBibliografiaButton;
+    private static javax.swing.JButton agregarEvaluacionButton;
+    private static javax.swing.JButton agregarPlaneacionButton;
+    public static javax.swing.JTable bibliografiaTable;
     private javax.swing.JLabel bibliograficaText;
     private javax.swing.JLabel bloqueOut;
     private javax.swing.JLabel bloqueText;
-    private javax.swing.JTable calendariaEvaluacionTable;
+    public static javax.swing.JTable calendarioEvaluacionTable;
     private javax.swing.JLabel calendarioEvaluacionText;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JLabel claveNrcOut;
     private javax.swing.JLabel claveNrcText;
+    private static javax.swing.JButton eliminarBibliografiaButton;
+    private static javax.swing.JButton eliminarEvaluacionButton;
+    private static javax.swing.JButton eliminarPlaneacionButton;
     private javax.swing.JLabel experienciaEducativaOut;
     private javax.swing.JLabel experienciaEducativaText;
     private javax.swing.JButton guardarButton;
@@ -495,7 +640,7 @@ public class ElaborarPlanDeCurso extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     private javax.swing.JLabel periodoOut;
     private javax.swing.JLabel periodoText;
-    private javax.swing.JTable planeacionTable;
+    public static javax.swing.JTable planeacionTable;
     private javax.swing.JLabel planeacionText;
     private javax.swing.JLabel programaEducativoOut;
     private javax.swing.JLabel programaEducativoText;
